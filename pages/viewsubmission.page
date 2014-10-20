@@ -1,0 +1,102 @@
+<apex:page controller="viewsubmissionctr" showHeader="false" sidebar="false" id="id1">
+    <style type="text/css">
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .mainTitle{
+                    width: 200%;
+        }
+        .bPageBlock {
+                    background-color: white !important;
+        }
+        .jtable{
+                     margin-left:9%;
+                     margin-right:9%;
+                     border-left:1px solid #BFE098;
+                     border-right:1px solid #BFE098;
+                     border-collapse:collapse;
+                     background-color: #E2F2CE;
+        }
+        td{         
+                     {!if(checklogin = true,'border-top:1px solid #BFE098;','')}
+                     {!if(checklogin = true,'border-bottom:1px solid #BFE098;','')}
+                     {!if(checklogin = true,'padding:20px;','')}
+        }
+        tr{
+                    {!if(checklogin = true,'height : 50px;','')}
+        }
+        .message{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+    </style>
+    
+      <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+
+       <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+    <apex:outputtext rendered="{!if(talentlogin!=null, true, false)}" style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}"  />
+     
+    <apex:outputtext rendered="{!if(nplogin!=null, true, false)}" style="margin-left:82%; font-weight:bold;" value="Logged in as {!navo.name}" />
+   
+     <apex:form rendered="{!if(talentlogin!=null, true,false)}">
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Positions Posted</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+     <apex:form rendered="{!if(nplogin!=null, true,false)}">
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;">Positions Posted</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+    
+    
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:form id="frm" rendered="{!checklogin}">
+    
+            <table class="jtable" callspacing="0">
+                <apex:repeat value="{!jList}" var="j">
+                    <tr>
+                        <td width="500%"><div style="color:#04B404;font-weight: bold; font-size:20px;"><u>
+                        <apex:commandLink value="{!j.Name}"  action="{!viewJob}" >
+                                <apex:param assignTo="{!editId}" value="{!j.id}" name="editId"/>    
+                            </apex:commandLink>
+                        </u></div></td>
+                        
+                        
+                        
+                        <td width="10%">
+                            <apex:commandButton value="Edit" reRender="frm" action="{!editJob}" rendered="{!! ronly}">
+                                <apex:param assignTo="{!editId}" value="{!j.id}" name="editId"/>    
+                            </apex:commandButton>
+                        </td>
+                        <td  >
+                            <apex:commandButton rendered="{!if(nplogin!=null, true, false)}"  value="Delete"  action="{!URLFOR($Action.Project__c.delete,j.id,[retURL='/apex/viewsubmission?nplogin='+nplogin+'&oid='+oId],true)}"/>
+                                <apex:commandButton rendered="{!!noReadOnly}" value="Delete"  action="{!URLFOR($Action.Project__c.delete,j.id,[retURL='/apex/viewsubmission?orgId='+oId+'&eid='+eid+'&role='+role],true)}"/>
+                      
+                       
+                        </td>
+                    </tr>
+                  
+                    
+                </apex:repeat>
+            </table>
+            <br></br>
+            <div align="center"> <apex:commandButton value="Back" action="{!gotohome}"/> </div>
+     
+            
+    </apex:form>
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" onclick="window.open('/apex/UserLoginVF','_parent')"/></div>
+    </apex:form>
+</apex:page>

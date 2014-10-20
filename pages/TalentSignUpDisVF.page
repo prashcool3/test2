@@ -1,0 +1,502 @@
+<apex:page controller="TalentSignUpDisCtr" showHeader="false" sidebar="false" id="Page1">
+    <style type="text/css">
+        .pbBody{
+            font-size:14px;
+        }
+        .pbHeader{
+            font-size:15px;
+        }
+        .hideListButton{
+            font-size: 20px;
+        }
+        .detailList{
+                font-size: 14px;
+        }
+        .pbSubheader {
+                font-size: 15px;
+         }
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .mainTitle{
+                    width: 200%;
+                   
+        }
+        .bPageBlock {
+                    background-color: white !important;
+        }
+        .apexp{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .message{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .boxed {
+          border: 1px solid blue ;
+        }
+
+        .pbTitle{
+            font-size:15px;
+        }
+        .pbButton{
+            font-size:14px;
+        }
+      
+    </style>
+    
+    
+    <script language="javascript">
+        function loadscrollbottom_demo() {
+            window.scroll(0,700);
+        }
+        
+        function showhelp(){
+            document.getElementById("helpid").style.display = "block";
+        }
+        function hidehelp(){
+            document.getElementById("helpid").style.display = "none";
+        }
+        
+         function setValue(myVal) {
+            alert('You have successfully added/edited the references.');
+        }
+        
+    </script>
+    
+   
+    
+    <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+    <apex:form ><div style="margin-left:9%;"><apex:commandLink action="{!gotosite}"><apex:image url="{!$Resource.GrantSourceLogo}"></apex:image></apex:commandlink></div></apex:form>
+    <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" />
+    
+    <apex:form >
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;"><apex:outputtext value="{!gr.First_Name__c}'s Profile"/></div>
+         </div>
+    </apex:form><br></br>
+   <!-- <apex:sectionHeader title="Profile"/> -->
+    <apex:pagemessages />
+    <apex:form id="frm" rendered="{!checklogin}">
+    
+    <apex:outputtext style="margin-left:9%;" value="Projects completed: "/>
+        <div style="margin-left:9%;">
+            <apex:repeat value="{!projects}" >
+                <apex:image url="{!$Resource.ProjectG}" width="30" height="30"/>
+            </apex:repeat>
+        </div><br></br>
+        
+         <div style="color: #4a4a56; text-align:left; margin-left:80%; display:none; position: absolute; width: 10%; border: 1px solid; background: rgb(229, 228, 226);" id="helpid">{!needToBeCompleted}</div> 
+       
+        
+        
+      <apex:outputtext style="margin-left:9%;" value="Grants received: "/>
+        <div style="margin-left:9%;">      
+            <apex:repeat value="{!projects1}" >
+                <apex:image url="{!$Resource.GAg}" width="30" height="30" />
+            </apex:repeat>
+        </div><br></br>
+        
+                 
+          
+        <table style="margin-left:0%" width="91%" id="table">
+            <tr>
+                <td width="400px">
+               <apex:outputtext style="margin-left:120px;" value="My Rating"/>
+                    <div style="margin-left:120px;">    
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(gr.Average_Rating__c=='1', true, false)}"> <apex:image url="{!$Resource.Stars1G}" height="30" /></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(gr.Average_Rating__c=='2', true, false)}"> <apex:image url="{!$Resource.Stars2G}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(gr.Average_Rating__c=='3', true, false)}"> <apex:image url="{!$Resource.Stars3G}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(gr.Average_Rating__c=='4', true, false)}"> <apex:image url="{!$Resource.Stars4G}"  height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(gr.Average_Rating__c=='5', true, false)}"> <apex:image url="{!$Resource.Stars5G}" height="30"/></apex:outputText>
+                        <apex:commandLink value="({!numberOfReviews} reviews)"  onclick="loadscrollbottom_demo()" oncomplete="loadscrollbottom_demo()"/> 
+                    </div>
+                </td>
+                
+                <td width="300px" align="left">
+              <!-- <apex:outputtext style="margin-left:120px;" value="Organization Rating"/>
+                    <div style="margin-left:120px;">    
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='1', true, false)}"> <apex:image url="{!$Resource.Stars1G}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='2', true, false)}"> <apex:image url="{!$Resource.Stars2G}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='3', true, false)}"> <apex:image url="{!$Resource.Stars3G}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='4', true, false)}"> <apex:image url="{!$Resource.Stars4G}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='5', true, false)}"> <apex:image url="{!$Resource.Stars5G}" height="30"/></apex:outputText>
+                       
+                    </div>-->
+                </td>
+       
+                <td align="right" id="completed">
+                  
+                    <div onmouseover="showhelp();" onmouseout="hidehelp();">Profile {!completed}% completed </div>
+                    <div align="left" style="width:250px; height:25px; background:white no-repeat center top; border-radius:10px; border-style: solid; border-width:1px; border-color:#BCED91; ">
+                        <span style= "width:{!widthfactor}px; display:block; height: 25px; border-radius:10px; background:#BCED91 no-repeat center bottom;" ></span>
+                    </div>  
+              
+                    
+                    
+                </td>
+               
+            </tr>
+        </table> 
+    
+        <apex:pageBlock rendered="{!isEdit}" id="pgblk">
+             <apex:pageBlockButtons location="top">
+             <div style="margin-left:120px">
+                <apex:commandButton value="Save" action="{!Save}" />
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+             </div>
+            </apex:pageBlockButtons>
+            <apex:actionRegion >
+                <apex:pageBlockSection title="User Information" id="detail3">
+                    <apex:inputField value="{!gr.Salutation__c}"/>
+                    <apex:inputField value="{!gr.First_Name__c}" required="true" />
+                    <apex:inputField value="{!gr.Last_Name__c}" required="true"/>
+                    <apex:inputField value="{!gr.User__r.name}" label="Username"/>
+                    <apex:inputField value="{!gr.Phone__c}"/>
+                    <apex:inputField value="{!gr.Phone_alternate__c}"/>
+                    <apex:inputField value="{!gr.Talent_Skill__c}" id="talenttype">
+                        <apex:actionSupport event="onchange" reRender="detail3"/>
+                    </apex:inputField>
+                   
+                    <apex:inputField value="{!gr.Self_Evaluation_Writer__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Grant Writer'),true,if(gr.Talent_Skill__c = 'All',true,false))}" label="Funding Raised"/>
+                    <apex:inputField value="{!gr.Seeking__c}"/>
+                    <apex:inputField value="{!gr.Interest_In__c}" />
+                    <apex:inputField value="{!gr.Self_Evalation_Researcher__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Researcher'),true,if(gr.Talent_Skill__c = 'All',true,false))}"/>
+                    <apex:inputField value="{!gr.Self_Evaluation_Editor__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Editor'),true,if(gr.Talent_Skill__c = 'All',true,false))}"/>
+                    <apex:inputField value="{!gr.Self_Evaluation_Editor_more__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Editor'),true,if(gr.Talent_Skill__c = 'All',true,false))}"/>
+                </apex:pageBlockSection>
+            </apex:actionRegion>
+            <apex:pageBlockSection title="Contact Information">
+                <apex:inputField value="{!gr.Mailing_Street_Address__c}"/>
+                <apex:inputField value="{!gr.City__c}"/>
+                <apex:inputField value="{!gr.State__c}"/>
+                <apex:inputField value="{!gr.Zip_Postal_Code__c}"/>
+                <apex:inputField value="{!gr.Email__c}" required="true" />
+                <apex:inputField value="{!gr.Website__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Additional Information" columns="1">
+            
+                <apex:outputPanel >
+                    <apex:outputText value="Select Resume" id="ott" style="margin-left:7%;font-size: 96%;font-weight: bold;color: #4a4a56;"/>
+                    <apex:inputFile accept="doc, txt, pdf" contentType="{!contentType}" filesize="1000" size="50" value="{!Resumee}" id="ifile" style="margin-left:2%; font-weight:bold;font-size: 96%;"/>
+                </apex:outputPanel> 
+                  <apex:outputPanel >&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:outputText value="Select Cover" id="ott1" style="margin-left:7%;font-size: 96%;font-weight: bold;color: #4a4a56;"/>
+                    <apex:inputFile accept="doc, txt, pdf" contentType="{!contentType1}" filesize="1000" size="50" value="{!cover}" id="ifile1" style="margin-left:2%; font-weight:bold;font-size: 96%;"/>
+                </apex:outputPanel>
+                <apex:commandLink style="margin-left:7%;font-size: 96%;font-weight: bold;color: #4a4a56;" value="Add/Edit references" onclick="window.open('/apex/addReferencesVF?gwid={!gId}','','scrollbars=1,width=1200,height=300','_blank',1);return false; "/>
+            </apex:pageblocksection>
+            
+            
+            <apex:pageblockSection title="External Links">
+                <apex:inputField value="{!gr.LinkedIn__c}"/>
+                 <apex:inputField value="{!gr.Twitter__c}"/>
+                 <apex:inputField value="{!gr.Facebook__c}"/>
+                 <apex:inputField value="{!gr.Others__c}"/>
+            </apex:pageBlockSection>
+            
+           <!-- <apex:pageblockSection title="Refernce Type">
+            <table width="115%">
+            <tr><td align="Right">Select Reference Type</td>
+            <td>    <apex:actionRegion >
+                   <apex:inputField value="{!gr.Select_Reference_Type__c}" id="refType">
+                      <apex:actionSupport event="onchange" reRender="pgblk"/>
+                   </apex:inputField>
+                   </apex:actionRegion>
+             </td>
+             </tr>
+             </table>
+            </apex:pageblockSection>
+            <apex:pageblocksection id="refer1" title="Reference - Colleague: Professional" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Colleague: Professional'), true, false)}">
+                   <apex:inputField value="{!gr.First_Name_Colleague_Professional__c}" label="First Name"/>
+                   <apex:inputField value="{!gr.Last_Name_Colleague_Professional__c}" label="Last Name"/>
+                   <apex:inputField value="{!gr.Email_Colleague_Professional__c}" label="Email"/>
+                   <apex:inputField value="{!gr.Daytime_Phone_Colleague_Professional__c}" label="Daytime Phone"/>
+                   <apex:inputField value="{!gr.Relationship_Colleague_Professional__c}" label="Relationship"/>
+            </apex:pageblocksection>
+              
+          <apex:pageBlockSection title="Reference - Supervisor: Professional" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Supervisor: Professional'), true, false)}">
+           <apex:inputField value="{!gr.First_Name_Supervisor_Professional__c}" label="First Name"/>
+           <apex:inputField value="{!gr.Last_Name_Supervisor_Professional__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Supervisor_Professional__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Supervisor_Professional__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!gr.Relationship_Supervisor_Professional__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Reference - Colleague: Volunteer work" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Colleague: Volunteer'), true, false)}" >
+           <apex:inputField value="{!gr.First_Name_Colleague_Volunteer__c}" label="First Name"/>
+           <apex:inputField value="{!gr.Last_Name_Colleague_Volunteer__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Colleague_Volunteer__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Colleague_Volunteer__c}" label="Daytime Phone"/>
+          <apex:inputField value="{!gr.Relationship_Colleague_Volunteer__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+       
+         
+        <apex:pageBlockSection title="Reference - Supervisor: Volunteer work" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Supervisor: Volunteer'), true, false)}">
+           <apex:inputField value="{!gr.First_Name_Supervisor_Volunteer__c}" label="First Name"/>
+           <apex:inputField value="{!gr.Last_Name_Supervisor_Volunteer__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Supervisor_Volunteer__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Supervisor_Volunteer__c}" label="Daytime Phone"/>
+         <apex:inputField value="{!gr.Relationship_Supervisor_Volunteer__c}" label="Relationship"/> 
+         </apex:pageBlockSection>
+          
+        <apex:pageBlockSection title="Reference - Professor: School" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Professor: School'), true, false)}">
+           <apex:inputField value="{!gr.First_Name_Professor__c}" label="First Name"/>
+           <apex:inputField value="{!gr.Last_Name_Professor__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Professor__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Professor__c}" label="Daytime Phone"/> 
+          <apex:inputField value="{!gr.Relationship_Professor__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockSection title="Reference - Personal: Community involvement" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Personal: Community involvement'), true, false)}">
+           <apex:inputField value="{!gr.First_Name_Personal__c}" label="First Name"/>
+           <apex:inputField value="{!gr.Last_Name_Personal__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Personal__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Personal__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!gr.Relationship_Personal__c}" label="Relationship"/> 
+         </apex:pageBlockSection>
+   
+        <apex:pageBlockSection title="Reference - Family Friend" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Family Friend'), true, false)}">
+           <apex:inputField value="{!gr.First_Name_Family_Friend__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Last_Name_Family_Friend__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Family_Friend__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Family_Friend__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!gr.Relationship_Family_Friend__c}" label="Relationship"/> 
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockSection title="Reference - Friend" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Friend'), true, false)}" >
+           <apex:inputField value="{!gr.First_Name_Friend__c}" label="First Name"/>
+           <apex:inputField value="{!gr.Last_Name_Friend__c}" label="Last Name"/>
+           <apex:inputField value="{!gr.Email_Friend__c}" label="Email"/>
+           <apex:inputField value="{!gr.Daytime_Phone_Friend__c}" label="Daytime Phone"/>
+          <apex:inputField value="{!gr.Relationship_Friend__c}" label="Relationship"/> 
+         </apex:pageBlockSection> -->
+         
+            
+            
+          
+            
+        </apex:pageBlock>
+       
+        <apex:pageBlock rendered="{!!IsEdit}">
+           
+            <apex:pageBlockButtons location="top" >
+              
+                <apex:commandButton style="margin-left:120px;" value="Edit" action="{!Edit}" reRender="frm"/>
+                <apex:commandButton value="View Jobs" action="{!view}"/>
+                <apex:commandButton value="Applied Jobs" action="{!viewJobs}"/>
+               
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="User Information">
+                <apex:outputField value="{!gr.Salutation__c}"/>
+                <apex:outputField value="{!gr.Name}" label="Name"/>
+                <apex:outputField value="{!gr.User__r.name}" label="Username"/>
+                <apex:outputField value="{!gr.Phone__c}"/>
+                <apex:outputField value="{!gr.Phone_alternate__c}"/>
+                <apex:outputField value="{!gr.Talent_Skill__c}"/>
+                <apex:outputField value="{!gr.Self_Evaluation_Writer__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Grant Writer'),true,if(gr.Talent_Skill__c = 'All',true,false))}" label="Funding Raised"/>
+                <apex:outputField value="{!gr.Seeking__c}"/>
+                <apex:outputField value="{!gr.Interest_In__c}" />
+                <apex:outputField value="{!gr.Audience__c}" />
+                <apex:outputField value="{!gr.Self_Evalation_Researcher__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Researcher'),true,if(gr.Talent_Skill__c = 'All',true,false))}"/>
+                <apex:outputField value="{!gr.Self_Evaluation_Editor__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Editor'),true,if(gr.Talent_Skill__c = 'All',true,false))}"/>
+                <apex:outputField value="{!gr.Self_Evaluation_Editor_more__c}" rendered="{!if(contains(gr.Talent_Skill__c,'Editor'),true,if(gr.Talent_Skill__c = 'All',true,false))}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Contact Information">
+                <apex:outputField value="{!gr.Mailing_Street_Address__c}"/>
+                <apex:outputField value="{!gr.City__c}"/>
+                <apex:outputField value="{!gr.State__c}"/>
+                <apex:outputField value="{!gr.Zip_Postal_Code__c}"/>
+                <apex:outputField value="{!gr.Email__c}" />
+                <apex:outputField value="{!gr.Website__c}"/>
+                 
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockSection title="Employment Information">
+                <apex:pageblockSectionItem >
+                    <apex:outputText value="Previous Employers"/>
+                    <apex:outputPanel id="deptList" > 
+                        <apex:repeat value="{!prevOrgs}" var="d">
+                           <apex:commandLink value="{!d.name}" action="{!viewNPInfo}">
+                                <apex:param assignTo="{!npid}" value="{!d.id}" name="org"/>
+                            </apex:commandlink><br/>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageblockSectionItem>
+                 
+                <apex:pageblockSectionItem >
+                    <apex:outputText value="Current Employer"/> 
+                    <apex:outputpanel > 
+                        <apex:commandLink value="{!org.name}" action="{!viewNPInfo}">
+                            <apex:param assignTo="{!npid}" value="{!org.id}" name="org"/>
+                        </apex:commandlink><br/>
+                    </apex:outputpanel> 
+                </apex:pageblockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Additional Information" rendered="{!if(IsNull(attc.id),false,true)}">
+              <apex:outputPanel >
+                    <apex:outputText value="Resume" id="ott" style="margin-left:24%; font-size: 96%; font-weight: bold; color: #4a4a56;"/>
+                    <apex:outputLink value="{!URLFOR($Action.Attachment.Download, attc.Id)}" style="margin-left:4%; font-size: 96%;">{!attc.name}</apex:outputLink>
+                </apex:outputPanel> 
+                 <apex:outputPanel >
+                    <apex:outputText value="Cover Letter" id="ott1" style="margin-left:19%; font-size: 96%; font-weight: bold; color: #4a4a56;"/>
+                    <apex:outputLink value="{!URLFOR($Action.Attachment.Download, att.Id)}" style="margin-left:4%; font-size: 96%;">{!att.name}</apex:outputLink>
+                </apex:outputPanel> 
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageblockSection title="References" rendered="{!isref}" columns="1" >
+             <apex:pageBlockTable value="{!rList}" var="a" id="table">
+         <apex:column headerValue="First Name" >
+               <apex:outputField value="{!a.First_Name__c}"/>
+          </apex:column>
+           <apex:column headerValue="Last Name">
+               <apex:outputField value="{!a.Last_Name__c}"/>
+          </apex:column>
+           <apex:column headerValue="Profession">
+             <apex:outputField value="{!a.Profession__c}"/>
+         </apex:column>
+          <apex:column headerValue="Daytime Phone">
+             <apex:outputField value="{!a.Phone__c}"/>
+         </apex:column>
+         <apex:column headerValue="Email">
+             <apex:outputField value="{!a.Email__c}"/>
+         </apex:column>
+         <apex:column headerValue="Relationship">
+             <apex:outputField value="{!a.Relationship__c}"/>
+         </apex:column>
+          
+     </apex:pageBlockTable> 
+            
+            </apex:pageblockSection>
+            
+            
+             <apex:pageBlockSection title="External Links">
+            <apex:outputField value="{!gr.LinkedIn__c}"/>
+                 <apex:outputField value="{!gr.Twitter__c}"/>
+                 <apex:outputField value="{!gr.Facebook__c}"/>
+                 <apex:outputField value="{!gr.Others__c}"/>
+            </apex:pageBlockSection>
+        
+        <!--<apex:pageblockSection title="Selected Reference Types">
+                
+                   <apex:outputField value="{!gr.Select_Reference_Type__c}" />
+         </apex:pageblockSection>
+            <apex:pageblocksection title="Reference - Colleague: Professional" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Colleague: Professional'), true, false)}">
+                   <apex:outputField value="{!gr.First_Name_Colleague_Professional__c}" label="First Name"/>
+                   <apex:outputField value="{!gr.Last_Name_Colleague_Professional__c}" label="Last Name"/>
+                   <apex:outputField value="{!gr.Email_Colleague_Professional__c}" label="Email"/>
+                   <apex:outputField value="{!gr.Daytime_Phone_Colleague_Professional__c}" label="Daytime Phone"/>
+                <apex:outputField value="{!gr.Relationship_Colleague_Professional__c}" label="Relationship"/>
+            </apex:pageblocksection>
+             <apex:pageBlockSection title="Reference - Supervisor: Professional" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Supervisor: Professional'), true, false)}">
+           <apex:outputField value="{!gr.First_Name_Supervisor_Professional__c}" label="First Name"/>
+           <apex:outputField value="{!gr.Last_Name_Supervisor_Professional__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Supervisor_Professional__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Supervisor_Professional__c}" label="Daytime Phone"/>
+             <apex:outputField value="{!gr.Relationship_Supervisor_Professional__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Reference - Colleague: Volunteer work" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Colleague: Volunteer'), true, false)}" >
+           <apex:outputField value="{!gr.First_Name_Colleague_Volunteer__c}" label="First Name"/>
+           <apex:outputField value="{!gr.Last_Name_Colleague_Volunteer__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Colleague_Volunteer__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Colleague_Volunteer__c}" label="Daytime Phone"/>
+           <apex:outputField value="{!gr.Relationship_Colleague_Volunteer__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+       
+         
+        <apex:pageBlockSection title="Reference - Supervisor: Volunteer work" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Supervisor: Volunteer'), true, false)}">
+           <apex:outputField value="{!gr.First_Name_Supervisor_Volunteer__c}" label="First Name"/>
+           <apex:outputField value="{!gr.Last_Name_Supervisor_Volunteer__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Supervisor_Volunteer__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Supervisor_Volunteer__c}" label="Daytime Phone"/>
+            <apex:outputField value="{!gr.Relationship_Supervisor_Volunteer__c}" label="Relationship"/> 
+         </apex:pageBlockSection>
+          
+        <apex:pageBlockSection title="Reference - Professor: School" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Professor: School'), true, false)}">
+           <apex:outputField value="{!gr.First_Name_Professor__c}" label="First Name"/>
+           <apex:outputField value="{!gr.Last_Name_Professor__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Professor__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Professor__c}" label="Daytime Phone"/>
+           <apex:outputField value="{!gr.Relationship_Professor__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockSection title="Reference - Personal: Community involvement" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Personal: Community involvement'), true, false)}">
+           <apex:outputField value="{!gr.First_Name_Personal__c}" label="First Name"/>
+           <apex:outputField value="{!gr.Last_Name_Personal__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Personal__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Personal__c}" label="Daytime Phone"/>
+           <apex:outputField value="{!gr.Relationship_Personal__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+   
+        <apex:pageBlockSection title="Reference - Family Friend" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Family Friend'), true, false)}">
+           <apex:outputField value="{!gr.First_Name_Family_Friend__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Last_Name_Family_Friend__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Family_Friend__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Family_Friend__c}" label="Daytime Phone"/>
+           <apex:outputField value="{!gr.Relationship_Family_Friend__c}" label="Relationship"/> 
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockSection title="Reference - Friend" rendered="{!if(contains(gr.Select_Reference_Type__c, 'Friend'), true, false)}" >
+           <apex:outputField value="{!gr.First_Name_Friend__c}" label="First Name"/>
+           <apex:outputField value="{!gr.Last_Name_Friend__c}" label="Last Name"/>
+           <apex:outputField value="{!gr.Email_Friend__c}" label="Email"/>
+           <apex:outputField value="{!gr.Daytime_Phone_Friend__c}" label="Daytime Phone"/>
+            <apex:outputField value="{!gr.Relationship_Friend__c}" label="Relationship"/>
+         </apex:pageBlockSection> -->
+        
+        
+            <div align="center"><apex:commandButton value="Back" rendered="{!if(editinfo!=null, true, false)}" action="{!viewprevJob}"/></div>
+           <!--  </apex:pageBlock>
+     </apex:form> -->
+      
+ <!--  <apex:form rendered="{!if(org.id!=null, true, false)}">
+       <div align="center"><apex:commandButton value="Post Job for {!org.name}" action="{!postJob}" />
+       <apex:commandButton action="{!viewOrgJobs}" value="View Projects of {!org.name}"/></div> 
+       <div align="center"><apex:commandButton value="Back" rendered="{!if(editinfo!=null, true, false)}" action="{!viewprevJob}"/></div>
+    </apex:form> -->
+   <!-- <br></br>
+    <apex:form id="read-reviews"> -->
+  <!--  <apex:pageBlock title="Reviews" rendered="{!checklogin}"> -->
+         <apex:pageBlockSection title="Reviews" columns="1"  > 
+         <apex:repeat value="{!ratingList}" var="a">
+                <div style="border:2px solid olivedrab;">
+                   <!-- <apex:pageBlockSection columns="1"  > -->   
+                      <apex:commandLink style="color:#04B404;font-weight: bold; font-size:20px;" value="{!a.Organization__r.name}" action="{!viewNPInfo}">
+                            <apex:param assignTo="{!npid}" value="{!a.Organization__r.id}" name="org"/>
+                        </apex:commandlink>
+                       <div>{!a.Rating_for__r.name}</div>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='1', true, false)}"> <apex:image url="{!$Resource.Stars1G}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='2', true, false)}"> <apex:image url="{!$Resource.Stars2G}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='3', true, false)}"> <apex:image url="{!$Resource.Stars3G}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='4', true, false)}"> <apex:image url="{!$Resource.Stars4G}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='5', true, false)}"> <apex:image url="{!$Resource.Stars5G}"/></apex:outputText>
+                        <br/>
+                        <div>{!a.Comments__c}</div><br/>
+                        
+                       
+                        <br/><br/><br/><br/>
+                    <!-- </apex:pageBlocksection>    -->
+                </div><br/>  
+            </apex:repeat>
+             </apex:pageBlocksection>  
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!RLogin}"/></div>
+    </apex:form>
+    <br/><br/><br/><br/><br/>
+</apex:page>

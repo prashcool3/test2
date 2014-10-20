@@ -1,0 +1,28 @@
+<apex:page controller="rateEmployee" showheader="false"  sidebar="false">
+  <script language="JavaScript" type="text/javascript">
+        window.onload = function autoclose(){
+            var check = {!popupclose};
+            if(check == false){
+                var oVal = 'false';
+                window.close();
+                window.opener.setValue(oVal);
+                opener.location.reload(true);
+                return false;
+            }
+        }
+    
+        
+    </script>
+    
+<apex:form >
+    <apex:pageblock title="Rate Supervisor">
+    <apex:pageblocksection >
+        <apex:inputfield value="{!r.Star_Rating__c}"/>
+        <apex:inputfield value="{!r.Comments__c}"/>
+        
+    </apex:pageblocksection>
+        <div align="center"><apex:commandButton value="Save" action="{!save}"/></div>
+    
+    </apex:pageblock>
+ </apex:form>
+  </apex:page>

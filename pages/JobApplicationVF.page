@@ -1,0 +1,50 @@
+<apex:page controller="JobApplicationCtr" sidebar="false" showHeader="false">
+    <style type="text/css">
+        .bPageBlock {
+                    background-color: white !important;
+         }
+         .mainTitle{
+                width: 300%;
+                margin-left: 24% !important;
+         }
+    </style>
+    
+    <script language="JavaScript" type="text/javascript">
+        window.onload = function autoclose(){
+            var check = {!popupclose};
+            if(check == false){
+                var oVal = 'false';
+                window.close();
+                window.opener.setValue(oVal);
+                opener.location.reload(true);
+                return false;
+            }
+        }
+    
+        
+    </script>
+    
+    <div style="font-size:20px;margin-left:8%;"><br/>Apply For Job<br/><br/></div>
+    <apex:pagemessages ></apex:pagemessages>
+    <apex:form >
+        <apex:pageBlock title="Please complete all the fields below. Your application will be sent to the employer for consideration." id="pgblk">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!ja.name}" label="Name"/>
+                <apex:inputField value="{!ja.Email__c}"/>
+                <apex:inputField value="{!ja.Phone__c}"/>
+                <!--<apex:inputField value="{!ja.Proposal_Bid_Price__c}"/>
+                <apex:inputField value="{!ja.Delivery_Within__c}"/>-->
+                <apex:inputField value="{!ja.Covering_Note__c}" label="Note to employer" style="width: 400px;height: 40px;"/>
+            </apex:pageBlockSection>
+            <br/>
+            <div style="margin-left:20%;">
+                <apex:actionRegion >
+                    <apex:commandButton value="Apply" action="{!apply}"/>
+                </apex:actionRegion>
+            </div>
+            <!--<div style="margin-left:20%; visibility:{!IF((showApply == false),'visible','hidden')};">
+                Successfully Applied for the Job
+            </div>-->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

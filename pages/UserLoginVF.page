@@ -1,0 +1,80 @@
+<apex:page Controller="UserLoginCtr" sidebar="false" id="ulogin" showHeader="false">
+    <script type="text/javascript">
+       
+        function jsfun(){
+            var c = document.getElementById("pwe").value;    
+            document.getElementById("{!$Component.ulogin.frm:blck:e}").value = c;
+            if(document.getElementById("{!$Component.ulogin:frm:blck:uname}").value == null || document.getElementById("{!$Component.ulogin:frm:blck:uname}").value == ''){
+                alert("Please Enter User Name");
+                return false;
+            }
+            if(document.getElementById("{!$Component.ulogin:frm:blck:e}").value == null || document.getElementById("{!$Component.ulogin:frm:blck:e}").value == ''){
+                alert("Please Enter Password");
+                return false;
+            }
+        }
+    </script>
+    <style type="text/css">
+    .pbBody{
+        font-size:14px;
+    }
+    .bPageTitle{
+                border: 1px solid lightgray;
+                padding-bottom: 15px;
+                background-color: #fafafa;
+    }
+    .pageType {
+                font-size: 38px !important;
+                margin-left: 12% !important;
+                padding-bottom: 20px;
+    }
+    .bPageBlock{
+               background-color: white !important;
+               border-color: white;
+    }
+    </style>
+    
+    <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp; &nbsp;<apex:commandLink style="margin-right:11%;font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/></div>
+    
+    <div style="margin-left:9%;font-size:15px; color:red;"><blink>Welcome to the test environment of Grant Source</blink></div>
+    </apex:form>
+    <div style="margin-left:9%;margin-top:2%"><apex:image url="{!$Resource.GrantSourceLogo}"/></div>
+    
+   
+   <apex:form >
+         <div style=" border: 1px solid #d1d0ce;width:1100px;margin-left:121px;height:70px; padding-top: 30px; background-color:#e5e4e2;">
+             <div style="font-size:40px;margin-left:90px;">User Login</div>
+         </div>
+         
+    </apex:form><br></br>
+   
+   
+    <apex:pagemessages ></apex:pagemessages>
+    <apex:form id="frm">
+        <!--<div align="right" style="margin-right:9%;"><apex:commandlink value="Employee Login" action="{!emplogin}"/></div>-->
+        <apex:pageBlock id="blck">
+            <table align="center" width="25%">
+                <tr>
+                    <td style="font-weight:bold;color: #4a4a56;">User Name</td>
+                    <td><apex:inputField value="{!u.name}" id="uname"/></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold;color: #4a4a56;">Password</td>
+                    <td><input type = "password" id="pwe"/></td>
+                </tr>
+                <tr style="visibility:hidden">
+                    <td>Password</td>
+                    <td><apex:inputHidden value="{!u.Password__c}" id="e"/></td>
+                </tr>
+            </table>
+            <div align="center">
+                <apex:commandButton value="Login" style="font-size:14px;" action="{!Login}" onclick="return jsfun();"/>
+                <apex:commandButton value="Sign Up" style="font-size:14px;" action="{!signup}"/>
+            </div>
+            <br/>
+            <div align="center">
+                <apex:commandLink value="Forgot/change your password?" onclick="window.open('/apex/forgotyourPassword','','scrollbars=1,width=1200,height=300','_blank',1);return false; "/>
+            </div>
+        </apex:pageBlock>
+    </apex:form><br/><br/>
+</apex:page>

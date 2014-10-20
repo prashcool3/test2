@@ -1,0 +1,112 @@
+<apex:page controller="employee" sidebar="false" showHeader="false">
+
+  <script language="javascript">
+        function loadscrollbottom_demo() {
+            window.scroll(0,700);
+        }
+  </script>
+
+   <apex:form ><div align="right" style="margin-right:9%;"><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp;</div></apex:form>
+       <div style="margin-left:9%;"><apex:image url="{!$Resource.GrantSourceLogo}"/></div>
+    
+     
+     <apex:form >
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;"><Apex:outputtext value="{!e.name}'s Information"/></div>
+         </div>
+         
+    </apex:form><br></br>
+    <apex:form >
+    <table style="margin-left:0%" width="91%" id="table">
+            <tr>
+                <td width="400px">
+               <apex:outputtext style="margin-left:120px;" value="My Rating"/>
+                    <div style="margin-left:120px;">    
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==1, true, false)}"> <apex:image url="{!$Resource.Stars1B}" height="30" /></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==2, true, false)}"> <apex:image url="{!$Resource.Stars2B}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==3, true, false)}"> <apex:image url="{!$Resource.Stars3B}" height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==4, true, false)}"> <apex:image url="{!$Resource.Stars4B}"  height="30"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==5, true, false)}"> <apex:image url="{!$Resource.Stars5B}" height="30"/></apex:outputText>
+                        <apex:commandLink value="({!numberOfReviews} reviews)"  onclick="loadscrollbottom_demo()" oncomplete="loadscrollbottom_demo()"/> 
+                    </div>
+                </td>
+               </tr>
+      </table>
+     </apex:form>
+        
+    
+    <apex:form style="width:81%; margin-left:9%;">
+    <Apex:pageBlock rendered="{!!Edit}" >
+       <div align="center"><apex:commandButton value="Edit" action="{!edit}"/> <apex:commandButton value="View Job Submissions" action="{!view}"/><apex:commandButton value="Post Job" action="{!postjob}" rendered="{!regularRights}"/><apex:commandButton value="Invite Employees" action="{!addEmpPage}" rendered="{!adminRights}" /><apex:commandButton value="View Employees List" action="{!listEmp}" rendered="{!adminRights}"/></div><br/>
+        <apex:pageblockSection title="User Information">
+            <apex:outputField value="{!e.username__c}"/>
+            <apex:outputField value="{!e.name}"/>
+            <apex:outputField value="{!e.Last_Name__c}"/>
+            <apex:outputField value="{!e.Email__c}"/>
+            <apex:outputField value="{!e.Address__c}"/>
+            <apex:outputField value="{!e.City__c}"/>
+            <apex:outputField value="{!e.State__c}"/>
+            <apex:outputField value="{!e.Country__c}"/>
+            <apex:outputField value="{!e.Phone__c}"/>
+            <apex:outputField value="{!e.PIN__c}"/>
+              <apex:pageblockSectionItem >
+                <apex:outputText value="Organization"/>
+                <apex:commandLink value="{!org.name}" action="{!gotoOrg}"/>
+            </apex:pageblockSectionItem>
+            <apex:outputField value="{!e.Role__c}"/>
+        </apex:pageblockSection>
+         </Apex:pageBlock>
+          <Apex:pageBlock rendered="{!Edit}" >
+          <div align="center"><apex:commandButton value="Save" action="{!save}"/></div>
+        <apex:pageblockSection title="Edit Information">
+            <apex:inputField value="{!e.username__c}"/>
+            <apex:inputField value="{!e.name}"/>
+            <apex:inputField value="{!e.Last_Name__c}"/>
+            <apex:inputField value="{!e.Email__c}"/>
+            <apex:inputField value="{!e.Address__c}"/>
+            <apex:inputField value="{!e.City__c}"/>
+            <apex:inputField value="{!e.State__c}"/>
+            <apex:inputField value="{!e.Country__c}"/>
+            <apex:inputField value="{!e.Phone__c}"/>
+            <apex:inputField value="{!e.PIN__c}"/>
+            <!--<apex:pageblockSectionItem >
+                <apex:outputText value="Organization"/>
+                <apex:commandLink value="{!org.name}" action="{!gotoOrg}"/>
+            </apex:pageblockSectionItem>-->
+             <apex:inputField value="{!e.Organization__c}"/>
+            <apex:outputField value="{!e.Role__c}"/>
+        </apex:pageblockSection>
+        
+    
+    </Apex:pageBlock>
+   </apex:form>
+   
+   <apex:form id="read-reviews" style="width:81%; margin-left:9%;">
+    <apex:pageBlock title="Reviews">
+         <apex:repeat value="{!ratingList}" var="a">
+                <div style="border:2px solid #a0cfec;">
+                    <apex:pageBlockSection columns="1"  >    
+                       <apex:commandLink style="color:#04B404;font-weight: bold; font-size:20px; color:#a0cfec;" value="{!a.grant_writer__r.name}"/>
+                          <!-- <apex:param assignTo="{!npid}" value="{!a.Organization__r.id}" name="org"/> 
+                        </apex:commandlink>
+                         <apex:outputtext style="color:#04B404;font-weight: bold; font-size:20px; color:#a0cfec;" value="{!a.grant_writer__r.name}"/>-->
+                       <div>{!a.Rating_for_emp__r.name}</div>
+                        <div>Project: &nbsp;{!a.Project__r.name}</div>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='1', true, false)}"> <apex:image url="{!$Resource.Stars1B}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='2', true, false)}"> <apex:image url="{!$Resource.Stars2B}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='3', true, false)}"> <apex:image url="{!$Resource.Stars3B}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='4', true, false)}"> <apex:image url="{!$Resource.Stars4B}"/></apex:outputText>
+                        <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(a.Star_Rating__c=='5', true, false)}"> <apex:image url="{!$Resource.Stars5B}"/></apex:outputText>
+                        <br/>
+                        <div>{!a.Comments__c}</div><br/>
+                        
+                       
+                        <br/><br/><br/><br/>
+                     </apex:pageBlocksection>    
+                </div><br/>  
+            </apex:repeat>
+        </apex:pageBlock>
+    </apex:form>
+    
+   
+</apex:page>

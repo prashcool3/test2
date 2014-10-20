@@ -1,0 +1,394 @@
+<apex:page standardController="Organization__c" extensions="NonProfitSignUpCtr" sidebar="false" id="detail" showHeader="false">
+    
+    <script type="text/javascript">
+    
+        var previousCheckId;
+        function toggle(chkBox) {
+            if (chkBox.checked) {
+                if (previousCheckId) {
+                   document.getElementById(previousCheckId).checked = false;
+                }
+                previousCheckId = chkBox.getAttribute('id');
+                
+            }    
+            if(chkBox.value == 'Yes'){
+                document.getElementById("yes").style.display = "block";
+                document.getElementById("{!$Component.detail:detail1:yes2}").style.display = "block";
+            }else{
+                document.getElementById("yes").style.display = "none";
+                document.getElementById("{!$Component.detail:detail1:yes2}").style.display = "none";
+            }    
+        }
+        
+        var previousCheckId1;
+        function toggle1(chkBox) {
+            if (chkBox.checked) {
+                if (previousCheckId1) {
+                   document.getElementById(previousCheckId1).checked = false;
+                }
+            previousCheckId1 = chkBox.getAttribute('id');
+            }
+        }
+        
+        var previousCheckId2;
+        function toggle2(chkBox) {
+            if (chkBox.checked) {
+                if (previousCheckId2) {
+                   document.getElementById(previousCheckId2).checked = false;
+                }
+            previousCheckId2 = chkBox.getAttribute('id');
+            }
+        }
+    
+        function validateForm(){
+            var org = document.getElementById("{!$Component.detail:detail1:orgid}").value;
+            if(org == null || org == ''){
+                alert('Orgaization cannot be null');
+                return false;
+            }
+            
+            var fname = document.getElementById("{!$Component.detail:detail1:pfname}").value;
+            if(fname == null || fname == ''){
+                alert('First Name cannot be null');
+                return false;
+            }
+            
+            var phone = document.getElementById("{!$Component.detail:detail1:orgphone}").value;
+            if(phone == null || phone == ''){
+                alert('Organization Phone cannot be null');
+                return false;
+            }
+            
+            var lname = document.getElementById("{!$Component.detail:detail1:plname}").value;
+            if(lname== null || lname == ''){
+                alert('Last Name cannot be null');
+                return false;
+            }
+          
+            var c = document.getElementById("{!$Component.detail:detail1:taxid}").value;
+            y=c.length;
+            var p=c.indexOf("-");
+            if(y!=0){
+                if(y<9){
+                    alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                    return false;
+                }
+            }
+            if(y==9){
+                if(isNaN(c)){
+                    alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                    return false;
+                }
+            }
+            if(y==10){
+                if(p!=2){
+                    alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                    return false;
+                }
+            }
+            if(y==10){
+                if(p==2){
+                    var res = temp.split("-");
+                    var f=res[0];
+                    var g=res[1];
+                    if(isNaN(f)){
+                        alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                        return false;
+                    }
+                }
+            }
+            if(y==10){
+                if(p==2){
+                    var res = temp.split("-");
+                    var f=res[0];
+                    var g=res[1];
+                    if(isNaN(g)){
+                        alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        function jsFunction(){
+            var x=document.getElementById("{!$Component.detail:detail1:type}").value;
+            if(x=="University"){
+                var k=document.getElementById("{!$Component.detail:detail1:utype}");
+                var k1=document.getElementById("{!$Component.detail:detail1:utype1}");
+                k.setAttribute('style','visibility:visible');
+                k1.setAttribute('style','visibility:visible');
+            }
+            else{
+                var k=document.getElementById("{!$Component.detail:detail1:utype}");
+                var k1=document.getElementById("{!$Component.detail:detail1:utype1}");
+                k.setAttribute('style','visibility:hidden');
+                k1.setAttribute('style','visibility:hidden');
+            }
+        }
+    </script>
+    <style type="text/css">
+    .apexp{
+                margin-left:9%;
+                margin-right:9%;
+    }
+    .bPageTitle{
+                border: 1px solid lightgray;
+                padding-bottom: 15px;
+                background-color: #fafafa;
+    }
+    .pageType {
+                font-size: 38px !important;
+                margin-left: 12% !important;
+                padding-bottom: 20px;
+    }
+    .mainTitle{
+                width: 200%;
+    }
+    .bPageBlock {
+                background-color: white !important;
+    }
+    .classname {
+                -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+                -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+                box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+                background-color:#79bbff !important; 
+                -moz-border-radius:6px;
+                -webkit-border-radius:6px;
+                border-radius:6px;
+                border:1px solid #84bbf3;
+                display:inline-block;
+                color:#ffffff !important;
+                font-family:arial;
+                font-size:15px;
+                font-weight:bold;
+                padding:6px 24px;
+                text-decoration:none;
+                text-shadow:1px 1px 0px #528ecc;
+    }
+    .classname:hover {
+                background-color:#378de5 !important;
+    }.classname:active {
+                position:relative;
+                top:1px;
+    }
+    
+    .bPageBlock .detailList tr td,.bPageBlock .detailList tr th {
+                border-bottom: 0px !important;
+    }
+    
+    .detailList{
+                font-size: 14px;
+    }
+    </style>
+        <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/> <apex:commandLink style="font-weight:bold; text-decoration:none; margin-right:11%;" action="{!blog}" value=" Blog"/></div></apex:form>
+
+    <apex:form ><div style="margin-left:9%;margin-top:2%"><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+  
+       
+     <apex:form >
+         <div style="border: 1px solid #a0cfec; margin-left:9%; margin-right:9%; height:70px; padding-top: 30px; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:90px;">Non-profit Sign up</div>
+         </div>
+    </apex:form><br></br>
+  
+  
+    <div style="margin-left:9%;font-size:25px;"><br/>Please sign up below. Feature your organization and connect with talented experts.<br/><br/></div>
+    <apex:pagemessages id="pm" ></apex:pagemessages>
+    <apex:form id="detail1" styleClass="myFormStyle">
+        <table style="margin-left:11%; width:70%; font-size:14px;" cellpadding="10">
+        <tr>
+            <td width="14%"> We are</td>
+            <td>
+                <apex:inputField value="{!Organization__c.Type__c}" label="We are" id="type" onchange="jsFunction();" style="border-left-width: 2px; border-radius: 3px;">
+                    <apex:actionSupport event="onchange" reRender="detail1"/>
+                </apex:inputField>
+            </td>
+                
+            <td width="14%">
+                <apex:outputText value="University type" id="utype1" style="visibility:hidden; border-left-width: 2px; border-radius: 3px;"/>
+            </td>
+            <td>
+                <apex:inputField value="{!Organization__c.University_Type__c}" id="utype" style="visibility:hidden;"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">Organization Name</td>
+            <td size="20" style="vertical-align: top;"> <apex:inputField value="{!Organization__c.name}" id="orgid" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"/> </td>
+            <td style="vertical-align: top;">List any other name the organization is known as</td>
+            <td size="20" style="vertical-align: top;">   <apex:inputField value="{!Organization__c.Other_Name_Organisation_is_known_as__c}" style="border: 1px solid lightgray; border-radius: 3px;"/> </td>
+         </tr>
+         <tr>
+             <td style="vertical-align:top;border: 1px solid lightgray; border-radius: 3px;">
+                 <apex:inputtext value="{!dept}" label="Dept" id="inputdept" />
+             </td>
+             <td style="vertical-align:top;">     
+                 <apex:commandButton value="Add Department" action="{!addDept}" reRender="deptList,inputdept,pm" />
+             </td>
+             <td style="vertical-align:top;">
+                <apex:outputText value="Departments:"/></td><td>
+                <apex:outputPanel id="deptList"> 
+                    <apex:repeat value="{!depList}" var="d">
+                        <apex:outputText value="{!d}" style="border: 1px solid lightgray; border-radius: 3px;"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+             </td>
+         </tr>
+         <tr>
+             <td>Annual Budget Size</td>
+             <td size="20"> <apex:inputField value="{!Organization__c.Annual_Budget_Size__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td># of Employees</td>
+             <td size="20"> <apex:inputField value="{!Organization__c.of_employees_FTE__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+         </tr>
+         <tr>
+             <td>Mailing Street Address</td>
+             <td size="20"> <apex:inputField value="{!Organization__c.Mailing_Street_Address__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td>City</td>
+             <td size="20">  <apex:inputField value="{!Organization__c.City__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+         </tr>
+         <tr>
+             <td>State</td>
+             <td size="20">  <apex:inputField value="{!Organization__c.State__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td>Zip</td>
+             <td size="20">  <apex:inputField value="{!Organization__c.Zip_Postal_Code__c}" label="Zip" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+         </tr>
+         <tr>
+             <td>Email</td>
+             <td size="20"> <apex:inputField value="{!Organization__c.Email__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td>Website</td>
+             <td size="20"> <apex:inputField value="{!Organization__c.Website__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+         </tr>
+         <tr>
+             <td>Salutation</td>
+             <td size="20"><apex:inputField value="{!Organization__c.Salutation__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td>Title</td>
+             <td size="20"><apex:inputField value="{!Organization__c.Title__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+         </tr>
+         <tr>
+             <td>Contact Person First Name</td>
+             <td size="20"><apex:inputField value="{!Organization__c.Contact_Person_First_Name__c}" id="pfname" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td>Last Name</td>
+             <td size="20"><apex:inputField value="{!Organization__c.Last_Name__c}" id="plname" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"/></td>
+             
+         </tr>
+         <tr>
+             <td>Organization Phone</td>
+             <td size="20"><apex:inputField value="{!Organization__c.Phone__c}" id="orgphone" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"/></td>
+             <td>Federal EIN/ Tax# (9 digits)</td>
+             <td size="20"><apex:inputField value="{!Organization__c.Tax_EIN__c}" label="Federal EIN/ Tax# (9 digits)" id="taxid" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+         </tr>
+         <tr>
+             <td style="vertical-align:top;">Phone Alternate</td>
+              
+             <td size="20" style="vertical-align:top;"><apex:inputField value="{!Organization__c.Phone_alternate__c}" style="border: 1px solid lightgray; border-radius: 3px;"/></td>
+            
+             <td>Federal Tax Exempt Status (check one)</td>
+             <td size="20" style="vertical-align:top;">
+                 <!--<apex:inputField value="{!Organization__c.Federal_Tax_Exempt_Status__c}">
+                     <apex:actionSupport event="onchange" reRender="details"/>
+                 </apex:inputField>-->
+                 <apex:selectCheckboxes value="{!str1}" layout="pageDirection" onclick="toggle(this)">
+                     <apex:selectOption itemValue="Yes" itemLabel="Yes"/>
+                     <apex:selectOption itemValue="No" itemLabel="No"/>
+                 </apex:selectCheckboxes>
+             </td>
+         </tr>
+         <tr>
+            <td style="vertical-align:top;">Exempt from tax</td>
+            <td size="20" style="padding-top:0px">
+                <apex:selectCheckboxes value="{!str}" layout="pageDirection" onclick="toggle1(this)">
+                     <apex:selectOption itemValue="Church affiliated" itemLabel="Church affiliated"/>
+                     <apex:selectOption itemValue="Gov’t entity" itemLabel="Gov’t entity"/>
+                     <apex:selectOption itemValue="Annual gross receipts less than $5,000" itemLabel="Annual gross receipts less than $5,000"/>
+                 </apex:selectCheckboxes>
+                <!--<apex:inputField value="{!Organization__c.Exempt_from_tax__c}"/>-->
+            </td>
+            <td style="vertical-align:top; display:none;" id="yes">If Yes  </td>
+            <td size="20" style="padding-top:0px;" id="yes1">
+                <!--<apex:inputField value="{!Organization__c.If_yes__c}" />-->
+                <apex:selectCheckboxes value="{!str2}" layout="pageDirection" onclick="toggle2(this)" id="yes2" style="display:none;">
+                     <apex:selectOption itemValue="501 c3" itemLabel="501 c3"/>
+                     <apex:selectOption itemValue="501 c4" itemLabel="501 c4"/>
+                     <apex:selectOption itemValue="other" itemLabel="other"/>
+                </apex:selectCheckboxes>
+            </td>
+         </tr>
+         <tr>
+             <td style="vertical-align:top; " >Seeking talent type</td>
+             <td size="20" style="padding-top:0px;" ><apex:inputField value="{!Organization__c.Seeking_talent_type__c}"/></td>
+          </tr>
+          <tr>
+              <td style="vertical-align:top;" id="yes">Type of opportunity</td>
+              <td size="20" style="padding-top:0px;" >
+              <apex:selectCheckboxes value="{!str3}" layout="pageDirection" >
+                     <apex:selectOption itemValue="Arts/Culture" itemLabel="Arts/Culture"/>
+                     <apex:selectOption itemValue="Civic/Politics" itemLabel="Civic/Politics"/>
+                     <apex:selectOption itemValue="Disaster" itemLabel="Disaster"/>
+                     <apex:selectOption itemValue="Hunger" itemLabel="Hunger"/>
+                     <apex:selectOption itemValue="Education" itemLabel="Education"/>
+                     <apex:selectOption itemValue="STEAM/STEM" itemLabel="STEAM/STEM"/>
+                     <apex:selectOption itemValue="Science" itemLabel="Technology"/>
+                     <apex:selectOption itemValue="Recreation and sports" itemLabel="Recreation and sports"/>
+                     <apex:selectOption itemValue="Health Medicine" itemLabel="Health Medicine"/>
+                     <apex:selectOption itemValue="Social Justice" itemLabel="Social Justice"/>
+                     <apex:selectOption itemValue="Environment" itemLabel="Environment"/>
+                     <apex:selectOption itemValue="Diversity/Inclusion" itemLabel="Diversity/Inclusion"/>
+                     <apex:selectOption itemValue="Capacity Building" itemLabel="Capacity Building"/>
+                     <apex:selectOption itemValue="Leadership/Mentoring" itemLabel="Leadership/Mentoring"/>
+                     <apex:selectOption itemValue="Advocacy" itemLabel="Advocacy"/>
+                     <apex:selectOption itemValue="Math/Engineering" itemLabel="Math/Engineering"/>
+                 </apex:selectCheckboxes>
+              
+              </td>
+              <td style="vertical-align:top" >Area of expertise (topic)</td>
+              <td style="vertical-align:top;" >
+                   <apex:selectCheckboxes value="{!str4}" layout="pageDirection" >
+                     <apex:selectOption itemValue="Animals/Welfare" itemLabel="Animals/Welfare"/>
+                     <apex:selectOption itemValue="Entrepreneur" itemLabel="Entrepreneur"/>
+                     <apex:selectOption itemValue="Health/Medicine" itemLabel="Health/Medicine"/>
+                     <apex:selectOption itemValue="International/Global" itemLabel="International/Global"/>
+                     <apex:selectOption itemValue="Social/Hobbies" itemLabel="Social/Hobbies"/>
+                     <apex:selectOption itemValue="Senior/Elderly" itemLabel="Senior/Elderly"/>
+                     <apex:selectOption itemValue="Women's groups" itemLabel="Women's groups"/>
+                     <apex:selectOption itemValue="Young professionals" itemLabel="Young professionals"/>
+                     <apex:selectOption itemValue="Youth/Families" itemLabel="Youth/Families"/>
+                     <apex:selectOption itemValue="Other" itemLabel="Other"/>
+                </apex:selectCheckboxes>
+              
+              
+              </td>
+              
+          </tr>
+          <tr>
+               <td style="vertical-align:top;" >Audience</td>
+                <td style="vertical-align:top; " >
+                <apex:selectCheckboxes value="{!str5}" layout="pageDirection" >
+                     <apex:selectOption itemValue="Children: Early Childhood" itemLabel="Children: Early Childhood"/>
+                     <apex:selectOption itemValue="Children: Primary" itemLabel="Children: Primary"/>
+                     <apex:selectOption itemValue="Children: Secondary" itemLabel="Children: Secondary"/>
+                     <apex:selectOption itemValue="Children: University" itemLabel="Children: University"/>
+                     <apex:selectOption itemValue="Adult: Senior / Elderly" itemLabel="Adult: Senior / Elderly"/>
+                     <apex:selectOption itemValue="Family" itemLabel="Family"/>
+                     <apex:selectOption itemValue="Women" itemLabel="Women"/>
+                     <apex:selectOption itemValue="Men" itemLabel="Men"/>
+                     <apex:selectOption itemValue="Animals" itemLabel="Animals"/>
+                     <apex:selectOption itemValue="Veteran" itemLabel="Veteran"/>
+                </apex:selectCheckboxes>
+                
+                </td>
+              
+          
+          </tr>
+          
+          
+     </table>      
+           
+           <br/><br/>
+                
+            <div align="center">
+                <apex:commandButton value="Submit" action="{!save}" onclick="return validateForm();"/>
+                <apex:commandButton value="Cancel" onclick="window.open('/apex/UserloginVF','_parent');" />
+            </div>
+       
+        <br/><br/><br/><br/>
+    </apex:form>
+</apex:page>

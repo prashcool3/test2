@@ -1,0 +1,83 @@
+<apex:page controller="JobDesc" showHeader="false" sidebar="false" id="pge">
+    <style type="text/css">
+        .bPageBlock {
+                    background-color: white !important;
+        }
+        .apexp{
+                margin-left:9%;
+                margin-right:9%;
+        }
+        .detailList {
+            font-size:14px;
+        }
+        .pbHeader{
+            font-size:15px;
+        }
+        .mainTitle {
+            font-size:14px
+            }
+        .btn   {
+            font-size 
+         }
+         .message{
+                margin-left:9%;
+                margin-right:9%;
+         }
+    </style>
+    
+    <script language="javascript" type="text/javascript">
+        /*window.onload = function autoclose(){
+            alert(document.referrer);
+            alert(':::::::::::{!sss}:::::::');
+        }*/
+        
+        function setValue(myVal) {
+            alert('You have successfully applied for the Job.');
+        }
+    </script>
+     <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp;  <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+ 
+    <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}" ><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+ 
+     <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" rendered="{!if(talentlogin!=null, true,false)}"/>
+     <apex:form >
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Job Description</div>
+         </div>
+    </apex:form><br></br>
+    <apex:pagemessages />
+    <apex:form id="frm" rendered="{!checkLogin}">
+        <apex:pageBlock title="Job">
+            <apex:pageBlockSection >
+                <apex:outputField value="{!job.name}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Position_Type__c}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Salary_Type__c}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Job_Category__c}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Minimum_Salary__c}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Maximum_Salary__c}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Short_Description__c}" style="color:#04B404; font-size:20px;font-weight: bold;"/>
+                <apex:outputField value="{!job.Project_Description__c}" label="Job Description"/>
+                
+                <apex:outputField value="{!job.Department__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+             
+        <apex:outputText value="Posted By " style="color:#4a4a56; font-size:14px;; margin-left:140px" /> 
+        <apex:commandLink style="margin-left:0px;font-size:14px;" value="{!job.Organization__r.name}" action="{!NPInfo1}"/><br/>
+        <apex:outputText value="Supervisor " style="color:#4a4a56; font-size:14px;; margin-left:140px;" />
+        <apex:outputText style="margin-left:0px;font-size:14px;" value="{!job.Employees__r.name}"  />
+         <apex:commandLink style="margin-left:0px;font-size:14px;" value="{!jobapp.Grant_Writer__c}"  action="{!viewsupinfo1}" rendered="{if(jobapp.grant_writer__c==null,false, true)}"/>
+    </apex:form>
+    
+     <apex:form style="text-align: center; position: absolute:top: 50%;" rendered="{!checkLogin}"><apex:outputtext rendered="{!if(jobapp==null, false, true)}" value="You have applied for this job!!"/></apex:form>
+    <apex:form style="text-align: center; position: absolute:top: 50%;" rendered="{!checkLogin}">
+        <apex:commandButton rendered="{!if(jobapp==null, true, false)}" value="Apply for job" onclick="window.open('/apex/JobApplicationVF?ids={!jobid}&gwid={!gid}&talentlogin={!talentlogin}','','scrollbars=1,width=700,height=500','_blank',1);return false; "/>
+        <apex:commandButton value="Back" action="{!back}"/>
+       
+          
+               <!--<apex:commandButton rendered="{!if(gid==null, true, false)}" action="{!SubmitNPRating}" value="Rate Talent"/> -->
+    </apex:form>
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!RLogin}" /></div>
+    </apex:form>
+</apex:page>

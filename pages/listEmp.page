@@ -1,0 +1,33 @@
+<apex:page controller="listEmp" showHeader="false" sidebar="false">
+<apex:form >
+  <div style="margin-left:9%;"><apex:commandLink action="{!gotohome}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandlink></div>
+       <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!organization.name}"  />
+   </apex:form> 
+     
+     <apex:form style="font-size:20px;">
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;">Employees</div>
+         </div>
+    </apex:form><br></br>
+    <apex:form style="width:81%;margin-left:9%;">
+    <apex:pageblock >
+    <table cellspacing="10">
+    <apex:repeat value="{!empList}" var="e">
+    <tr style="font-size:15px;">
+    <td width="150%">
+        <apex:commandLink value="{!e.name} {!e.Last_Name__c}" action="{!empDetail}">
+        <apex:param assignTo="{!empId}" value="{!e.id}" name="empId"/>   
+        </apex:commandlink>
+     </td>
+     <td align="right">
+          <apex:commandButton value="Delete"  action="{!URLFOR($Action.Employees__c.delete,e.id,[retURL='/apex/listemp?orgid='+e.organization__c+'&nplogin='+e.organization__c],true)}"/>
+      </td>
+     </tr>
+     </apex:repeat>
+     </table>
+     </apex:pageblock>
+     <apex:commandButton value="Back" action="{!gotohome}"/>
+     
+    </apex:form>
+  
+</apex:page>

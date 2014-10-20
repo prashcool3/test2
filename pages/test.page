@@ -1,0 +1,99 @@
+<apex:page sidebar="false">
+  <script type="text/javascript">// <![CDATA[
+function validateForm(){  this.details.elements["Lead_Type__c"].value="Talent"; if(document.forms["details"]["first_name"].value==""){    alert("Enter the first name");    return false; } if(document.forms["details"]["email"].value==""){    alert("Enter the email");    return false; } if(document.forms["details"]["User_Name__c"].value==""){    alert("Enter the user name");    return false; } if(document.forms["details"]["last_name"].value==""){    alert("Enter the last name");    return false; } if(document.forms["details"]["phone"].value==""){    alert("Enter the Primary phone");    return false; } }
+// ]]></script>
+<h2>Please sign up below. Share your skills and connect with non-profits and universities.</h2>
+<form action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" name="details" onsubmit="return validateForm()"><input type="hidden" name="oid" value="00Di0000000g8Y1" />
+<table style="border: 0px; padding: 1em; font-size: 14px;">
+<tbody>
+<tr style="border-bottom-color: #ffffff;">
+<td style="text-align: left; border-bottom-color: #ffffff;" width="20%"><label for="salutation">Salutation</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;" width="35%"><select id="salutation" name="salutation"><option value="">--None--</option><option value="Mr.">Mr.</option><option value="Ms.">Ms.</option><option value="Mrs.">Mrs.</option><option value="Dr.">Dr.</option><option value="Prof.">Prof.</option></select></td>
+<td style="border-bottom-color: #ffffff;"><input id="Lead_Type__c" style="display: none;" type="text" maxlength="20" name="Lead_Type__c" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="first_name">First Name</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="first_name" style="border-left-width: 2px; border-left-color: #ff0000;" type="text" maxlength="40" name="first_name" required="" size="20" /></td>
+<td style="text-align: left; border-bottom-color: #ffffff;" width="22%"><label for="User_Name__c">User Name</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="User_Name__c" style="border-left-width: 2px; border-left-color: #ff0000;" type="text" maxlength="40" name="User_Name__c" required="" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="last_name">Last Name</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="last_name" style="border-left-width: 2px; border-left-color: #ff0000;" type="text" maxlength="80" name="last_name" required="" size="20" /></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="title">Title</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="title" type="text" maxlength="40" name="title" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="phone">Phone-primary</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="phone" style="border-left-width: 2px; border-left-color: #ff0000;" type="text" maxlength="40" name="phone" required="" size="20" /></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="MobilePhone">Phone-alternate</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="MobilePhone" type="text" maxlength="40" name="MobilePhone" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="street">Mailing Street Address</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="street" type="text" maxlength="40" name="street" size="20" /></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="city">City</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="city" type="text" maxlength="40" name="city" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="state">State</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="state" type="text" maxlength="20" name="state" size="20" /></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="zip">Zip</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="zip" type="text" maxlength="20" name="zip" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="email">Email</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="email" style="border-left-width: 2px; border-left-color: #ff0000;" type="text" maxlength="80" name="email" required="" size="20" /></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="URL">Website</label></td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><input id="URL" type="text" maxlength="80" name="URL" size="20" /></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><label for="Talent_Interested_in__c"><label for="Talent_Interested_in__c">Talent Skill:
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Choose Ctrl/Shift for multiple options.</i></span></p>
+</td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><select id="Talent_Interested_in__c" multiple="multiple" name="Talent_Interested_in__c" size="5"><option value="">--None--</option><option value="Grant writer">Grant writer              </option><option value="Researcher">Researcher</option><option value="Editor">Editor</option><option value="All">All</option></select></td>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><label for="Grant_writer_successful_contributions__c"><label for="Grant_writer_successful_contributions__c">Self Evaluation(Writer):
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Have documented evidence of successful contributions</i></span></p>
+</td>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><select id="Grant_writer_successful_contributions__c" name="Grant_writer_successful_contributions__c"><option value="">--None--</option><option value="Beginning (&lt; $100K)">Beginning (&lt; $100K)</option><option value="Intermediate (&gt;$101K-$250K)">Intermediate (&gt;$101K-$250K)</option><option value="Advanced (&gt;$250-1mm)">Advanced (&gt;$250-1mm)</option><option value="Advanced (1mm-3mm)">Advanced (1mm-3mm)</option><option value="Expert (3mm and up)">Expert (3mm and up)</option></select></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><label for="Seeking__c"><label for="Seeking__c">Seeking:
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Choose Ctrl/Shift for multiple options.</i></span></p>
+</td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><select id="Seeking__c" multiple="multiple" name="Seeking__c" size="6"><option value="">--None--</option><option value="Volunteer internship">Volunteer internship</option><option value="Volunteer">Volunteer</option><option value="Part-time employment">Part-time employment</option><option value="Contractor">Contractor</option><option value="Full-time employment">Full-time employment</option></select></td>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><label for="Researcher_prospecting_potential_funders__c"><label for="Researcher_prospecting_potential_funders__c">Self Evaluation(Researcher):
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Trained in prospecting potential funders and matching to needs of the non profit</i></span></p>
+</td>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><select id="Researcher_prospecting_potential_funders__c" name="Researcher_prospecting_potential_funders__c"><option value="">--None--</option><option value="Beginning (&lt; $100K)">Beginning (&lt; $100K)</option><option value="Intermediate (&gt;$101K-$250K)">Intermediate (&gt;$101K-$250K)</option><option value="Advanced (&gt;$250-1mm)">Advanced (&gt;$250-1mm)</option><option value="Advanced (1mm-3mm)">Advanced (1mm-3mm)</option><option value="Expert (3mm and up)">Expert (3mm and up)</option></select></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;" rowspan="2"><label for="Interested_In__c"><label for="Interested_In__c">Interest in:
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Choose Ctrl/Shift for multiple options.</i></span></p>
+</td>
+<td style="text-align: left; border-bottom-color: #ffffff;" rowspan="2"><select id="Interested_In__c" multiple="multiple" name="Interested_In__c" size="6"><option value="">--None--</option><option value="Animals/Welfare">Animals/Welfare</option><option value="Arts/Culture">Arts/Culture</option><option value="Civics/Politics">Civics/Politics</option><option value="Diversity/Inclusion">Diversity/Inclusion</option><option value="Education: Alumni">Education: Alumni</option><option value="Education: Equity">Education: Equity</option><option value="Education: Birth-Pre-K">Education: Birth-Pre-K</option><option value="Education: K-12">Education: K-12</option><option value="Education: College">Education: College</option><option value="Education: University">Education: University</option><option value="Entrepreneur">Entrepreneur</option><option value="Environment/Green">Environment/Green</option><option value="Health/Medicine">Health/Medicine</option><option value="International/Global">International/Global</option><option value="Recreation/Sports">Recreation/Sports</option><option value="Science">Science</option><option value="STEM related">STEM related</option><option value="STEAM related">STEAM related</option><option value="Social/ Hobbies">Social/ Hobbies</option><option value="Social Justice">Social Justice</option><option value="Senior/Elderly">Senior/Elderly</option><option value="Technology/Science">Technology/Science</option><option value="Women’s groups">Women’s groups</option><option value="Young professionals">Young professionals</option><option value="Youth/Families">Youth/Families</option><option value="Other">Other</option></select></td>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><label for="Editors_has_Experience_with__c"><label for="Editors_has_Experience_with__c">Self Evaluation(Editor):
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Have experience with</i></span></p>
+</td>
+<td style="text-align: left; vertical-align: top; border-bottom-color: #ffffff;"><select id="Editors_has_Experience_with__c" name="Editors_has_Experience_with__c"><option value="">--None--</option><option value="Local grants">Local grants</option><option value="Regional grants">Regional grants</option><option value="Federal grants">Federal grants</option></select></td>
+</tr>
+<tr>
+<td style="text-align: left; border-bottom-color: #ffffff;"><label for="Editor_Experience__c"><label for="Editor_Experience__c">Self Evaluation(Editor):
+</label></label>
+<p style="margin-left: 20px; line-height: 15px;"><span style="color: grey; font-size: xx-small;"><i>Have experience with</i></span></p>
+</td>
+<td style="text-align: left; border-bottom-color: #ffffff;"><select id="Editor_Experience__c" name="Editor_Experience__c"><option value="">--None--</option><option value="less than 5 grants">less than 5 grants</option><option value="more than 6 grants,less than 25 grants">more than 6 grants,less than 25 grants</option><option value="more than 26,less than 50 grants">more than 26,less than 50 grants</option><option value="More than 50 grants">More than 50 grants</option></select></td>
+</tr>
+</tbody>
+</table>
+<div align="center"><input type="submit" name="submit" /></div>
+<input type="hidden" name="retURL" value="http://www.grantsourcellc.com/thank-you/" />
+
+</form>
+</apex:page>

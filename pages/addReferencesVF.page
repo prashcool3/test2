@@ -1,0 +1,56 @@
+<apex:page controller="addReferencesCtr" sidebar="false" showHeader="false">
+    <script language="JavaScript" type="text/javascript">
+        window.onload = function autoclose(){
+            var check = {!popupclose};
+            if(check == false){
+                var oVal = 'false';
+                window.close();
+                window.opener.setValue(oVal);
+                opener.location.reload(true);
+                return false;
+            }
+        }
+    </script>
+    <apex:form >
+        <apex:pageBlock title="Add references" id="pgblk">
+            <div style="color:red;">Please fill the fields marked with * to save the reference!</div>
+            <apex:pageBlockButtons location="bottom">
+                <apex:actionRegion >
+                    <apex:commandButton value="Save" action="{!save_close}"/>
+                </apex:actionRegion>
+            </apex:pageBlockButtons>
+            <Div align="right">
+                <apex:outputtext value="References added: "/>
+                <b><apex:outputText value="{!refwrapperList.size}" style="width:45px"/></b>
+            </Div>
+            <br/>
+            <apex:pageBlockTable value="{!refwrapperList}" var="a" >
+                <apex:param assignTo="{!deletingref}" value="{!a.ref.id}"/>
+                <apex:column headerValue="First Name">
+                    <apex:inputField value="{!a.ref.First_Name__c}"/>
+                </apex:column>
+                <apex:column headerValue="Last Name*">
+                    <apex:inputField value="{!a.ref.Last_Name__c}"/>
+                </apex:column>
+                <apex:column headerValue="Profession*">
+                    <apex:inputField value="{!a.ref.Profession__c}"/>
+                </apex:column>
+                <apex:column headerValue="Daytime Phone">
+                    <apex:inputField value="{!a.ref.Phone__c}"/>
+                </apex:column>
+                <apex:column headerValue="Email*">
+                    <apex:inputField value="{!a.ref.Email__c}"/>
+                </apex:column>
+                <apex:column headerValue="Relationship*">
+                    <apex:inputField value="{!a.ref.Relationship__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:commandLink action="{!deleteref}" reRender="pgblk" value="Delete">
+                        <apex:param name="referenceId" value="{!a.counter}" assignTo="{!index}"/>
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:commandButton value="Add row" action="{!add_rows}" reRender="pgblk"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

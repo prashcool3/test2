@@ -1,0 +1,233 @@
+<apex:page sidebar="false" controller="addJobCtr" showHeader="false">
+    <style type="text/css">
+    .bPageTitle{
+                border: 1px solid lightgray;
+                padding-bottom: 15px;
+                background-color: #fafafa;
+    }
+    .pageType {
+                font-size: 38px !important;
+                margin-left: 12% !important;
+                padding-bottom: 20px;
+    }
+    .pbHeader{
+                width: 200%;
+                font-size:15px;
+    }
+    .button{
+                
+                font-size:14px;
+    }
+    .pbBody{
+                
+                font-size:14px;
+    }
+    .bPageBlock {
+                background-color: white !important;
+                font-size:14px;
+    }
+    .apexp{
+                margin-left:9%;
+                margin-right:9%;
+    }
+    .message{
+                margin-left:9%;
+                margin-right:9%;
+    }
+    .pbSubheader{
+        FONT-SIZE:15PX;
+    }
+    .detailList{
+         FONT-SIZE:14PX;
+       }
+    
+  </style>
+  
+  
+    <script type="text/javascript"> 
+        function checksalary(){
+            var min = document.getElementById('{!$Component.frm.pb.pbs.pbs2}').value;
+            var max = document.getElementById('{!$Component.frm.pb.pbs.pbs3}').value;
+            
+            if(min>max){
+                alert('Minimum salary'+ min+  'cannot be greater than Maximum salary' +max);
+                return false;
+            }
+            
+        }  
+ 
+        function salary() {
+            var val = document.getElementById('{!$Component.frm.pb.pbs.pbs1}').value;
+            var val1 = document.getElementById('{!$Component.frm.pb.pbs.pbs2}').value;
+            var val2 = document.getElementById('{!$Component.frm.pb.pbs.pbs3}').value;
+            if (val == 'Hourly' && (val1 < 5.00 || val2 > 200.00)) {
+                alert('The salary cannot be less than $5 or greater than $200 for Salary type:'Hourly'!!!!');
+            }
+            else if (val == 'Fixed Contract' && (val1 < 20.00 || val2 > 1000.00)) {
+                alert('The salary cannot be less than $20 or greater than $1000 for Salary type:'Fixed Contract'!!!!');
+            }
+            else if (val == 'Fixed Salary (monthly)' && (val1 < 1000.00 || val2 > 20000.00)) {
+                alert('The salary cannot be less than $1000 or greater than $20000 for Salary type:'Fixed Salary (monthly)'!!!!');
+            }
+            else if (val == 'Fixed Salary (yearly)' && (val1 < 25000.00 || val2 > 500000.00)) {
+                alert('The salary cannot be less than $25000 or greater than $500,000 Salary type:'Fixed Salary (yearly)'!!!!');
+            }
+        }
+        
+        function checkdate() {
+            var val = document.getElementById('{!$Component.frm.pb.pbdesc.enddate}').value;
+            if(val<System.today()){
+                 alert('The end date of the project should be greater than todays date!!!');
+            
+            }
+        }
+    </script>
+  
+         <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+
+  
+    <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+    
+  
+    <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" rendered="{!if(talentlogin!=null, true,false)}" />
+    <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navo.name}" rendered="{!if(nplogin!=null, true,false)}" />
+    
+    
+     <apex:form rendered="{!if(talentlogin!=null, true,false)}">
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top:2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Job Detail</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+     <apex:form rendered="{!if(nplogin!=null, true,false)}">
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;">Job Detail</div>
+         </div>
+    </apex:form><br></br>
+   
+    
+    <apex:form >  <div align="center"> <apex:commandButton style="font-size:14px;" value="Cancel" action="{!cancelSubmit}" rendered="{!if(isEdit==false, false, true)}"/></div></apex:form>
+    <br/>
+    <!--<apex:sectionHeader title="Job Listing Information"/>-->
+    <apex:pagemessages ></apex:pagemessages>
+    <apex:form id="frm" rendered="{!checklogin}">
+        <apex:pageBlock title="Job Details" rendered="{!isEdit}" id="pb">
+        
+            <apex:pageBlockSection title="Search Description" >
+                <apex:inputField value="{!jb.name}" required="true" label="Title"/>
+                <apex:inputField value="{!jb.Job_Category__c}" required="true" >
+                   <!-- <apex:actionSupport event="onchange" /> -->
+                </apex:inputField>
+                <apex:inputField value="{!jb.Tagline__c}" required="true"/>
+                <apex:inputField value="{!jb.Short_Description__c}" required="true"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Main Description" id="pbdesc">
+                <apex:inputField value="{!jb.Project_Description__c}" />
+                <apex:inputField value="{!jb.Tags_Keywords__c}"/>
+                 <apex:inputField value="{!jb.End_Date__c}" required="true" id="enddate" onchange="checkdate();"/>
+                 
+                 <apex:pageblockSectionItem >
+                 
+                 <apex:outputLabel value="Department"/>
+                    <apex:selectList value="{!selectedVal}" id="states">
+                        <apex:selectoptions value="{!options}"/>
+                        <!--<apex:actionSupport event="onchange" reRender="regions"/> -->
+                    </apex:selectList>
+                 </apex:pageblockSectionItem>
+                  
+                 <apex:inputField value="{!jb.SNo__c}" label="Number of Supervisors needed"/>
+                 <apex:inputField value="{!jb.GWNo__c}" label="Number of writers needed"/>
+                 <apex:inputField value="{!jb.GENo__c}" label="Number of editors needed"/>
+                 <apex:inputField value="{!jb.GRNo__c}" label="Number of researchers needed"/>
+                 <apex:inputField value="{!jb.Job_Code__c}"/>
+                 <apex:inputField value="{!jb.Employees__c}" label="Posted by"/>
+                 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Additional Details" id="pbs" > 
+                <apex:inputField value="{!jb.Email__c}" label="Contact Email" required="true"/>
+                <apex:inputField value="{!jb.Website__c}"/>
+                <apex:inputField value="{!jb.Visibility__c}" label="Job Visibility"/>
+                <apex:inputField value="{!jb.Job_Type__c}" required="true"/>
+                <apex:inputField value="{!jb.Position_Type__c}" required="true"/>
+                <!--<apex:inputField value="{!jb.Salary_Type__c}"  id="pbs1" rendered="{!if(jb.Job_Category__c == 'volunteer', false,true)}"> -->
+                <apex:inputField value="{!jb.Salary_Type__c}"  id="pbs1">
+                    <apex:actionSupport event="onchange" reRender="pbs"/>
+                </apex:inputField>
+                <apex:inputField value="{!jb.Minimum_Salary__c}" id="pbs2" rendered="{!if(jb.Salary_Type__c != '',true,false)}" onchange="salary();"/>
+                <apex:inputField value="{!jb.Maximum_Salary__c}" id="pbs3" rendered="{!if(jb.Salary_Type__c != '', true, false)}" onchange="salary();"/>
+                
+            </apex:pageBlockSection>
+            <!--<apex:pageBlockSection title="Upload Attachment">
+                <apex:inputFile ></apex:inputFile>
+            </apex:pageBlockSection>-->
+            <div align="center"><apex:commandButton action="{!submit}"   value="Submit" onclick="return checksalary();"/>
+            
+                <!-- <apex:commandButton value="Cancel" rendered="{!if(nav1==true, true, false)}" onclick="window.open('/apex/TalentSignUpDisVF?gwid={!gwid}&talentlogin={!talentlogin}','_parent)"  />
+                <apex:commandButton value="Cancel" rendered="{!if(nav2==true, true, false)}" onclick="window.open('/apex/NonProfitSignUpDisVF?orgid={!nplogin},'_parent)"  />
+                <apex:commandButton value="Cancel" rendered="{!if(nav3==true, true, false)}" onclick="window.open('/apex/viewsubmission?oid={!org}&talentlogin=talentlogin','_parent)"  />
+                <apex:commandButton value="Cancel" rendered="{!if(nav4==true, true, false)}" onclick="window.open('/apex/viewsubmission?oid={!org}&nplogin={!nplogin}','_parent)"  />
+                 -->
+            </div>
+             
+              
+        </apex:pageBlock>
+        <apex:pageBlock title="Job Details" rendered="{!!isEdit}"  >
+        
+            <apex:pageBlockSection title="Search Description">
+                <apex:outputField value="{!jb.name}" label="Title"/>
+                <apex:outputField value="{!jb.Job_Category__c}"/>
+                <apex:outputField value="{!jb.Tagline__c}"/>
+                <apex:outputField value="{!jb.Short_Description__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Main Description">
+                <apex:outputField value="{!jb.Project_Description__c}" />
+                <apex:outputField value="{!jb.Tags_Keywords__c}"/>
+                <apex:outputField value="{!jb.End_Date__c}"/>
+                <apex:outputField value="{!jb.Department__c}"/>
+                <apex:outputField value="{!jb.SNo__c}" label="Number of Supervisors needed"/>
+                <apex:outputField value="{!jb.GWNo__c}" label="Number of Writers needed"/>
+                <apex:outputField value="{!jb.GENo__c}" label="Number of Editors needed"/>
+                <apex:outputField value="{!jb.GRNo__c}" label="Number of Researchers needed"/>
+                <apex:outputField value="{!jb.Job_Code__c}" />
+                
+                <apex:pageblocksectionItem >
+                <apex:outputtext value="Posted By:"/>
+                <apex:outputText value="{!jb.Employees__r.name}" />
+                </apex:pageblocksectionItem>
+                 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Additional Details"> 
+                <apex:outputField value="{!jb.Email__c}" label="Contact Email"/>
+                <apex:outputField value="{!jb.Website__c}"/>
+                <apex:outputField value="{!jb.Visibility__c}" label="Job Visibility"/>
+                <apex:outputField value="{!jb.Job_Type__c}"/>
+                <apex:outputField value="{!jb.Position_Type__c}"/>
+                <apex:outputField value="{!jb.Salary_Type__c}"/>
+                <apex:outputField value="{!jb.Minimum_Salary__c}"/>
+                <apex:outputField value="{!jb.Maximum_Salary__c}"/>
+            </apex:pageBlockSection>
+            <!--<apex:pageBlockSection title="Upload Attachment">
+                <apex:inputFile ></apex:inputFile>
+            </apex:pageBlockSection>-->
+            <br/><br/>
+            <div align="center">
+                 <apex:commandButton action="{!viewOrgJobs}" value="View Submitted Projects" />
+                <apex:commandButton action="{!edit}"  value="Edit" rendered="{!!ronly}"/>
+                <apex:commandButton action="{!home}" rendered="{!if(nplogin!=null, true,false)}" value="Account Info"/>
+                <apex:commandButton action="{!npinfo}" value="Account Info" rendered="{!if(eid==null,false,true)}"/>
+                 <apex:commandButton value="Back" action="{!back}"/>
+                
+                <br/><br/><br/>
+                
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+   
+   
+    
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!Login}"/></div>
+    </apex:form>
+    <br/><br/><br/><br/>
+</apex:page>

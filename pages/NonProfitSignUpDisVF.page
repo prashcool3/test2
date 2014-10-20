@@ -1,0 +1,266 @@
+<apex:page controller="NonProfitSignUpDisCtr" showHeader="false" sidebar="false" id="detail" >
+    <script type="text/javascript">
+      
+       function addempalert()       
+        {      
+             alert("Please add employees using Invite Employees button!");
+         };
+
+    
+        function validateForm(){
+           
+            var c = document.getElementById("{!$Component.detail:frm:details2:details3:taxid}").value;
+            y=c.length;
+            var p=c.indexOf("-");
+            if(y!=0){
+                if(y<9){
+                    alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                    return false;
+                }
+            }
+            if(y==9){
+                if(isNaN(c)){
+                    alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                    return false;
+                }
+            }
+            if(y==10){
+                if(p!=2){
+                    alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                    return false;
+                }
+            }
+            if(y==10){
+                if(p==2){
+                    var res = temp.split("-");
+                    var f=res[0];
+                    var g=res[1];
+                    if(isNaN(f)){
+                        alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                        return false;
+                    }
+                }
+            }
+            if(y==10){
+                if(p==2){
+                    var res = temp.split("-");
+                    var f=res[0];
+                    var g=res[1];
+                    if(isNaN(g)){
+                        alert("Enter correct Tax EIN Number \nEg- xxxxxxxxx/xx-xxxxxxx");
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        function loading(){
+             var location = document.getElementById("{!$Component.detail:frm:details2:details3:dep}");
+             location.reload();
+        }
+        
+         function showhelp(){
+            document.getElementById("helpid").style.display = "block";
+        }
+        function hidehelp(){
+            document.getElementById("helpid").style.display = "none";
+        }
+        
+    </script>
+    
+    <style type="text/css">
+        .pbHeader{
+            font-size:14px;
+        }
+        .pbBody{
+            font-size:15px;
+        }
+        .detailList{
+                    font-size:14px;
+        }
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .mainTitle{
+                    width: 200%;
+        }
+        .bPageBlock {
+                    background-color: white !important;
+                    font-size:14px;
+         }
+         .apexp{
+                    margin-left:9%;
+                    margin-right:9%;
+         }
+         .message{
+                    margin-left:9%;
+                    margin-right:9%;
+         }
+         
+    </style>
+       <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+       <div style="margin-left:9%;"><apex:image url="{!$Resource.GrantSourceLogo}"/></div>
+       <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!org.name}" rendered="{!if(nplogin!=null, true, false)}" />
+    
+     
+     <apex:form >
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;"><apex:outputtext value="{!org.name}'s Information"/></div>
+         </div>
+    </apex:form><br></br>
+    
+    
+    <apex:pagemessages />
+ 
+        <apex:form id="Rateform" rendered="{!checklogin}">
+        
+        <div style="color: #4a4a56; text-align:left; margin-left:80%; display:none; position: absolute; width: 10%; border: 1px solid; background: rgb(229, 228, 226);" id="helpid">{!needToBeCompleted}</div> 
+        <TABLE width="91%">
+        <tr><td><div style="margin-left:110px;">Average approval rating</div></td></tr>
+        <tr><td>
+         <div style="margin-left:110px;">  
+     <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==1, true, false)}"> <apex:image url="{!$Resource.Stars1B}" height="30"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==2, true, false)}"> <apex:image url="{!$Resource.Stars2B}" height="30"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==3, true, false)}"> <apex:image url="{!$Resource.Stars3B}" height="30"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==4, true, false)}"> <apex:image url="{!$Resource.Stars4B}" height="30"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==5, true, false)}"> <apex:image url="{!$Resource.Stars5B}" height="30"/></apex:outputText>
+           </div>
+       </td>
+       <td align="right" >
+       
+           <div onmouseover="showhelp();" onmouseout="hidehelp();">Profile {!completed}% completed </div>
+         
+           <div align="left" style="width:250px; height:25px; background:white no-repeat center top; border-radius:10px; border-style:solid; border-width:1px; border-color:#C2DFFF;" id="prfle">
+                  
+                <span style= "width:{!widthfactor}px; display:block; height: 25px; border-radius:10px;  background:#C2DFFF no-repeat center bottom;" ></span>
+               
+                   </div>     
+        </td>
+        </tr>
+        </table>
+        </apex:form>
+    
+    <apex:form id="frm" rendered="{!checklogin}">
+        <apex:pageBlock rendered="{!isEdit}" id="details2">
+            <apex:pageBlockButtons location="both" >
+                <apex:commandButton value="Save" action="{!Save}" reRender="frm,Rateform"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:actionfunction name="test" rerender="deptList"/>
+            <apex:pageBlockSection title="User Information" id="details3">
+                <apex:inputField value="{!org.name}" required="true"/>
+                <apex:inputField value="{!org.Other_Name_Organisation_is_known_as__c}" label="Other Name Organization is known as"/>
+                <apex:pageblockSectionItem >
+                    <apex:inputtext value="{!dept}" label="Dept"/><apex:commandButton value="Add Department" action="{!addDept}" />
+                </apex:pageblockSectionItem>
+               
+           
+           
+           <table width="100%" style="margin-left:200px;" id="dep">
+               <tr>
+               <td><apex:outputText style="color:#4a4a56; font-weight: bold; font-size: 91%;" value="Department(s)"/> </td>
+               <td> <apex:selectList value="{!depts}"  >
+                        <apex:selectoptions value="{!options}" />
+                    </apex:selectList></td>
+              
+               <td><apex:commandButton value="Delete department" action="{!deletedept}" /></td>
+           
+            </tr>
+           </table>
+           
+         
+                <apex:inputField value="{!org.Annual_Budget_Size__c}"/>
+                <apex:inputField value="{!org.of_employees_FTE__c}"/>
+                <apex:inputField value="{!org.Salutation__c}"/>
+                <apex:inputField value="{!org.Title__c}"/>
+                <apex:inputField value="{!org.Contact_Name__c}" label="Name" required="true"/>
+                <apex:inputField value="{!org.Phone__c}" required="true"/>
+                <apex:inputField value="{!org.Tax_EIN__c}" label="Federal EIN/ Tax# (9 digits)" id="taxid"/>
+                <apex:inputField value="{!org.Phone_alternate__c}"/>
+                <apex:inputField value="{!org.Federal_Tax_Exempt_Status__c}">
+                    <apex:actionSupport event="onchange" reRender="details3"/>
+                </apex:inputField>    
+                <apex:inputField value="{!org.Exempt_from_tax__c}"/>
+                <apex:inputField value="{!org.If_yes__c}" rendered="{!if(contains(org.Federal_Tax_Exempt_Status__c,'Yes'),true,false)}"/>
+                <apex:inputField value="{!org.Seeking_talent_type__c}"/>
+                <apex:inputField value="{!Org.Type_of_opportunity__c}"/>
+                <apex:inputField value="{!Org.Area_of_expertise_topic__c}"/>
+                <apex:inputField value="{!Org.Audience__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Contact Information">
+                <apex:inputField value="{!org.Mailing_Street_Address__c}"/>
+                <apex:inputField value="{!org.City__c}"/>
+                <apex:inputField value="{!org.State__c}"/>
+                <apex:inputField value="{!org.Zip_Postal_Code__c}" label="Zip"/>
+                <apex:inputField value="{!org.Email__c}" required="true"/>
+                <apex:inputField value="{!org.Website__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!!IsEdit}" id="detail4">
+            <apex:pageBlockButtons location="both" >
+                <apex:commandButton value="Edit" action="{!Edit}" reRender="frm" />
+                <!--<apex:commandButton action="{!postjob}" value="Post Job"/>-->
+                <apex:commandButton action="{!view}" value="View Job Submission"/>
+                <apex:commandButton value="Invite Employees" action="{!addEmpPage}" />
+                <apex:commandButton value="Manage Employees" action="{!listEmp}" rendered="{!if(e>0, true,false)}"/>
+                <apex:commandButton value="Back" rendered="{!if(editinfo!=null, true, false)}" action="{!viewprevJob}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="User Information" id="detail5">
+                <apex:outputField value="{!org.name}"/>
+                <apex:outputField value="{!org.Other_Name_Organisation_is_known_as__c}" label="Other Name Organization is known as"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Department(s)"/>
+                    <apex:outputPanel >
+                        <apex:repeat value="{!dList}" var="d">
+                            <apex:outputText value="{!d.name}"/><br/>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                
+                </apex:pageBlockSectionItem>
+                                
+            
+                <apex:outputField value="{!org.Annual_Budget_Size__c}"/>
+                <apex:outputField value="{!org.of_employees_FTE__c}"/>
+                <apex:outputField value="{!org.Salutation__c}"/>
+                <apex:outputField value="{!org.Title__c}"/>
+                <apex:outputField value="{!org.Contact_Name__c}" label="Name"/>
+                <apex:outputField value="{!org.Phone__c}"/>
+                <apex:outputField value="{!org.Tax_EIN__c}" label="Federal EIN/ Tax# (9 digits)" id="taxid"/>
+                <apex:outputField value="{!org.Phone_alternate__c}"/>
+                <apex:outputField value="{!org.Federal_Tax_Exempt_Status__c}"/>
+                <apex:outputField value="{!org.Exempt_from_tax__c}"/>
+                <apex:outputField value="{!org.If_yes__c}" rendered="{!if(contains(org.Federal_Tax_Exempt_Status__c,'Yes'),true,false)}"/>
+                <!--<apex:pageblocksectionitem id="detail6">
+                    <apex:outputtext value="Employees added"/>
+                    <apex:outputtext value="{!e}" id="empadded"/>
+                </apex:pageblocksectionitem> -->
+                <apex:outputField value="{!org.Seeking_talent_type__c}"/>
+                <apex:outputField value="{!Org.Type_of_opportunity__c}"/>
+                <apex:outputField value="{!Org.Area_of_expertise_topic__c}"/>
+                <apex:outputField value="{!Org.Audience__c}"/>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Contact Information">
+                <apex:outputField value="{!org.Mailing_Street_Address__c}"/>
+                <apex:outputField value="{!org.City__c}"/>
+                <apex:outputField value="{!org.State__c}"/>
+                <apex:outputField value="{!org.Zip_Postal_Code__c}"/>
+                <apex:outputField value="{!org.Email__c}"/>
+                <apex:outputField value="{!org.Website__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <br/><br/><br/>
+    </apex:form>
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!Login}"/></div>
+    </apex:form>
+</apex:page>

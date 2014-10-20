@@ -1,0 +1,60 @@
+<apex:page controller="addEmpPage" sidebar="false" showHeader="false">
+
+
+<apex:form >
+<div style="margin-left:9%;"><apex:commandLink action="{!goback}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandlink></div>
+       <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!org.name}" />
+    
+     
+     
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;">Invite Employees</div>
+         </div>
+         <div style="width:81%;margin-left:9%;"><apex:pagemessages ></apex:pagemessages></div>
+     </apex:form>
+   <br/><br/>
+  
+  <apex:form style="width:81%;margin-left:9%;">
+  <apex:pageBlock >
+  <div style="font-size:15px;">Add email ids of employees you want to invite</div><br/>
+  <apex:pageblocksection >
+   <apex:inputText label="1." value="{!email1}"/><apex:selectList size="1" value="{!selectedRole1}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+  <apex:inputText label="2." value="{!email2}"/><apex:selectList size="1" value="{!selectedRole2}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+    <apex:inputText label="3." value="{!email3}"/><apex:selectList size="1" value="{!selectedRole3}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+     <apex:inputText label="4." value="{!email4}"/><apex:selectList size="1" value="{!selectedRole4}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+      <apex:inputText label="5." value="{!email5}"/><apex:selectList size="1" value="{!selectedRole5}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+       <apex:inputText label="6." value="{!email6}"/><apex:selectList size="1" value="{!selectedRole6}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+        <apex:inputText label="7." value="{!email7}"/><apex:selectList size="1" value="{!selectedRole7}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+         <apex:inputText label="8." value="{!email8}"/><apex:selectList size="1" value="{!selectedRole8}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+          <apex:inputText label="9." value="{!email9}"/><apex:selectList size="1" value="{!selectedRole9}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+           <apex:inputText label="10." value="{!email10}"/><apex:selectList size="1" value="{!selectedRole10}" label="Role">
+      <apex:selectOptions value="{!Roles }"/>
+    </apex:selectList> 
+             </apex:pageblocksection>
+             <br/>
+           <apex:pageblocksection >
+              <apex:inputTextarea label="Add Message" value="{!mailmsg}" cols="60" rows="3" /></apex:pageblocksection>
+  </apex:pageBlock>
+  <div align="center"><apex:commandButton value="Invite Employees" action="{!invited}"/><apex:commandButton value="Back" action="{!goback}"/></div>
+
+  </apex:form>
+  
+</apex:page>

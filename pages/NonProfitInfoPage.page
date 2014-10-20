@@ -1,0 +1,144 @@
+<apex:page controller="NonProfitInfoCtr" showHeader="false" sidebar="false">
+    <style type="text/css">
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .mainTitle{
+                    width: 200%;
+        }
+        .bPageBlock {
+                    background-color: white !important;
+        }
+        .apexp{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .message{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .pbBody{
+            font-size:15px;
+        
+        }
+    </style>
+    
+    <!--  <apex:form ><div style="margin-left:9%;"><apex:commandlink rendered="{!if(talentlogin!=null, true,false)}" onclick="window.open('apex/TalentSignUpDisVF?gwid={!talentlogin}','_parent')"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+        <apex:form ><div style="margin-left:9%;"><apex:commandlink rendered="{!if(nplogin!=null, true,false)}" onclick="window.open('apex/NonProfitSignUpDisVF?orgid={!nplogin}','_parent')"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+    -->
+           <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+
+
+      <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+    
+   
+   
+    
+     <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" rendered="{!if(talentlogin!=null, true,false)}" />
+     <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navo.name}" rendered="{!if(nplogin!=null, true,false)}" /> 
+     
+     
+     <!--<apex:form rendered="{!if(talentlogin!=null, true,false)}">
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Organization Information</div>
+         </div>
+    </apex:form><br></br>rendered="{!if(nplogin!=null, true,false)}" -->
+    
+    <apex:form >
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;">Organization Information</div>
+         </div>
+    </apex:form><br></br>
+    <apex:pageMessages /> 
+     
+     <apex:form rendered="{!checklogin}">
+    
+    
+    <table width="91%" >
+        <tr>
+            <td >
+                <div style="margin-left:40%;">  
+                    <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==1, true, false)}"> <apex:image url="{!$Resource.Stars1G}" height="30"/></apex:outputText>
+                    <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==2, true, false)}"> <apex:image url="{!$Resource.Stars2G}" height="30"/></apex:outputText>
+                    <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==3, true, false)}"> <apex:image url="{!$Resource.Stars3G}" height="30"/></apex:outputText>
+                    <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==4, true, false)}"> <apex:image url="{!$Resource.Stars4G}" height="30"/></apex:outputText>
+                    <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(avgrating==5, true, false)}"> <apex:image url="{!$Resource.Stars5G}" height="30"/></apex:outputText>
+                </div>
+            </td>
+            <td align="right">
+                <div>Profile {!completed}% completed</div>
+                <div align="left" style="width:250px; height:25px; background:white no-repeat center top; border-radius:10px; border-style:solid; border-width:1px; border-color:#a0cfec; ">
+                    <span style= "width:{!widthfactor}px; display:block; height: 25px; border-radius:10px; background:#C2DFFF no-repeat center bottom;" ></span>
+                </div>     
+            </td>
+        </tr>
+    </table>
+    
+        <apex:pageBlock Title="{!org.name}">
+       <!--     <apex:pageBlock rendered="{!if(org.Organization_Rating__c==null, false, true)}"> 
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='1', true, false)}"> <apex:image url="{!$Resource.Star1}"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='2', true, false)}"> <apex:image url="{!$Resource.Star2}"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='3', true, false)}"> <apex:image url="{!$Resource.Star3}"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='4', true, false)}"> <apex:image url="{!$Resource.Star4}"/></apex:outputText>
+         <apex:outputText style="color:grey; font-size:10px;" rendered="{!if(org.Organization_Rating__c=='5', true, false)}"> <apex:image url="{!$Resource.Star5}"/></apex:outputText> -->
+                       
+    
+           
+            <apex:pageBlockSection title="Company Information">
+                <apex:outputField value="{!org.name}"/>
+                <apex:outputField value="{!org.Other_Name_Organisation_is_known_as__c}" label="Other Name Organization is known as"/>
+                <apex:pageblockSectionItem >
+                <apex:outputText value="Departments:"/>
+                
+                <apex:outputPanel id="deptList" > 
+                   
+                    <apex:repeat value="{!dList}" var="d">
+                        <apex:outputText value="{!d.Name}"/><br/>
+                    </apex:repeat>
+                    
+                </apex:outputPanel>
+                </apex:pageblockSectionItem>
+                <!--<apex:outputField value="{!org.Department_Size__c}"/> -->
+                <apex:outputField value="{!org.Annual_Budget_Size__c}"/>
+                <apex:outputField value="{!org.of_employees_FTE__c}"/>
+                <apex:outputField value="{!org.Salutation__c}"/>
+                <apex:outputField value="{!org.Title__c}"/>
+                <apex:outputField value="{!org.Contact_Name__c}" label="Name"/>
+                <apex:outputField value="{!org.Phone__c}"/>
+                <apex:outputField value="{!org.Tax_EIN__c}" label="Federal EIN/ Tax# (9 digits)" id="taxid"/>
+                <apex:outputField value="{!org.Phone_alternate__c}"/>
+                <apex:outputField value="{!org.Federal_Tax_Exempt_Status__c}"/>
+                <apex:outputField value="{!org.Exempt_from_tax__c}"/>
+                <apex:outputField value="{!org.If_yes__c}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Contact Information">
+                <apex:outputField value="{!org.Mailing_Street_Address__c}"/>
+                <apex:outputField value="{!org.City__c}"/>
+                <apex:outputField value="{!org.State__c}"/>
+                <apex:outputField value="{!org.Zip_Postal_Code__c}"/>
+                <apex:outputField value="{!org.Email__c}"/>
+                <apex:outputField value="{!org.Website__c}"/>
+            </apex:pageBlockSection>
+    </apex:pageBlock>
+        
+     <!--   <div align="center"><apex:commandButton rendered="{!var1}"  value="Back" onclick="window.open('/apex/TalentSignUpDisVF?gwid={!talentlogin}','_parent')"/></div>
+                 <div align="center"><apex:commandButton rendered="{!var2}"  value="Back" onclick="window.open('/apex/NonProfitInfoPage?orgId={!nplogin}','_parent')"/></div>
+                 <div align="center"><apex:commandButton rendered="{!var3}"  value="Back" onclick="window.open('/apex/jobApplicants?isEdit=false&jbid={!jid}&orgId={!oid}&talentlogin={!talentlogin}','_parent')"/></div>
+                 <div align="center"><apex:commandButton rendered="{!var4}"  value="Back" onclick="window.open('/apex/jobApplicants?isEdit=false&jbid={!jid}&orgId={!oid}&nplogin={!nplogin}','_parent')"/></div> -->
+        <div align="center"><apex:commandButton value="Back" action="{!back}"/></div><br/><br/><br/><br/>
+    </apex:form>
+    
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!RLogin}"/></div>
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,113 @@
+<apex:page sidebar="false" Controller="UserSignUpCtr" showHeader="false" id="pge" >
+    <script type="text/javascript">
+        function showhelp(){
+            document.getElementById("helpid").style.display = "block";
+        }
+        function hidehelp(){
+            document.getElementById("helpid").style.display = "none";
+        }
+        
+        function validateform(){
+            if(document.getElementById("{!$Component.pge:frm:blck:uname}").value == null || document.getElementById("{!$Component.pge:frm:blck:uname}").value == ''){
+                alert("Please Enter User Name");
+                return false;
+            }
+            if(document.getElementById("{!$Component.pge:frm:blck:pw1}").value == null || document.getElementById("{!$Component.pge:frm:blck:pw1}").value == ''){
+                alert("Please Enter Password");
+                return false;
+            }
+            if(document.getElementById("pw2").value == null || document.getElementById("pw2").value == ''){
+                alert("Please Enter Confirm Password");
+                return false;
+            }
+            if(document.getElementById("{!$Component.pge:frm:blck:utype}").value == null || document.getElementById("{!$Component.pge:frm:blck:utype}").value == ''){
+                alert("Please Enter User Type");
+                return false;
+            }
+            if(document.getElementById("{!$Component.pge:frm:blck:pw1}").value != document.getElementById("pw2").value){
+                alert("Passwords did not match");
+                return false;
+            }
+        }
+    </script>
+    <style type="text/css">
+        .helpOrb:hover{  
+            background-image: url(/img/help/helpOrbs.gif);  
+            background-repeat: no-repeat;  
+            width: 16px;  
+            height: 15px;     
+            background-position: right;  
+         
+        }  
+        .helpOrb{  
+            background-image: url(/img/help/helpOrbs.gif);  
+            background-repeat: no-repeat;  
+            width: 16px;  
+            height: 15px;  
+        } 
+        .pbBody{
+                    font-size:14px;
+         }
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .bPageBlock{
+                   background-color: white !important;
+                   border-color: white;
+        }
+        .requiredBlock {
+                   border-left: 3px solid #c00;
+        }
+    </style>
+    <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/> <apex:commandLink style="margin-right:11%;font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/></div></apex:form>
+    <apex:form ><div style="margin-left:9%;margin-top:2%"><apex:commandLink action="{!gotosite}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandlink></div></apex:form>
+    
+    
+    <apex:form >
+         <div style=" border: 1px solid #d1d0ce;width:1100px;margin-left:121px;height:70px; padding-top: 30px; background-color:#e5e4e2;">
+             <div style="font-size:40px;margin-left:90px;">New User Registration</div>
+         </div>
+    </apex:form><br></br>
+    
+    <apex:form id="frm">
+        <apex:pageBlock id="blck">
+        <table align="center" width="25%">
+            <tr>
+                <td style="font-weight:bold;color: #4a4a56;">User Name</td>
+                <td class="requiredBlock"><apex:inputField value="{!u.name}" id="uname"/></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;color: #4a4a56;">Password</td>
+                <td class="requiredBlock"><apex:inputSecret value="{!u.Password__c}" id="pw1"/></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;color: #4a4a56;">Confirm Password</td>
+                <td class="requiredBlock"><input type="password" id="pw2"/></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;color: #4a4a56;" width="50%">
+                    User Type <img src="/s.gif" class="helpOrb" style="vertical-align: -webkit-baseline-middle;" onmouseover="showhelp();" onmouseout="hidehelp();"/>
+                </td>
+                <td class="requiredBlock"><apex:inputField value="{!u.User_Type__c}" id="utype"/></td>
+            </tr>
+            <tr>
+                <td style="color: #4a4a56; display:none; position: absolute; width: 10%; border: 1px solid; background: rgb(229, 228, 226);" id="helpid">Please select Talent, if you are seeking to apply for projects. Please select Non-Profit, if you are an organization.</td>
+            </tr>
+            <!--<tr>
+                <td style="font-weight:bold;color: #4a4a56;">Email</td>
+                <td><apex:inputField value="{!u.Email__c}" id="e"/></td>
+            </tr>-->
+        </table>
+        <div align="center"><br/>
+            <apex:commandButton value="Submit" action="{!submit}"  onclick="return validateform();" style="width:70px;font-size:14px;"/>
+        </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

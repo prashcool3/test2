@@ -1,0 +1,80 @@
+<apex:page controller="JobsList" action="{!fetchRecords}" showHeader="false" sidebar="false">
+    <style type="text/css">
+        .bPageBlock {
+                    background-color: white !important;
+                    border:0px;
+        }
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .pbBody{
+                font-size:14px;
+        }
+        
+        .apexp{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .message{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+    </style>
+   <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp;  <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+ 
+    <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}" ><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+     <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" rendered="{!if(talentlogin!=null, true,false)}" />
+    
+    <apex:form >
+         <div style=" border: 1px solid #4CBB17; margin-left:9%; margin-right:9%; height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Job Listing</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+    <apex:pagemessages />
+    <apex:pageBlock rendered="{!checklogin}">
+        <apex:form >
+        <div align="center"> <apex:commandButton value="Back" action="{!gotohome}"/></div><br></br>
+            <apex:repeat value="{!listJobs}" var="a">
+                <div style="border:2px solid olivedrab;">
+                    <apex:pageBlockSection columns="1">            
+                        <div style="color:#04B404;font-weight: bold; font-size:20px;">{!a.Name}</div>
+                        <div>{!a.Job_Category__c}</div>
+                        <hr/>
+                        <div style="color:grey; font-size:10px;">LISTED: {!a.CreatedDate} by: {!a.Organization__r.name} </div>
+                        <hr/><br/>
+                        <div>{!a.Short_Description__c}</div><br/>
+                     <!--  <apex:commandlink value="View reviews of {!a.Organization__r.name}" onclick="window.open('/apex/viewReviewsNPVF?ids={!a.Organization__c}','_parent')"/>-->
+                        <table bgcolor="#FFFFFF" align="right" cellpadding="5">
+                            <tr>
+                                
+                                <td style="color:grey; font-size:10px;">Salary: {!a.Minimum_Salary__c} - {!a.Maximum_Salary__c}</td>
+                                <td style="color:grey; font-size:10px;">
+                                   <input type="button" value="view job" onclick="window.open('/apex/jobdesc?ids={!a.id}&gwid={!gid}&talentlogin={!talentlogin}','_parent')"/>
+                                </td>
+                            </tr>
+                            <tr><td></td>
+                            <td style="background-color:#013ADF; color:white;">{!a.Position_Type__c}</td>
+                            </tr>
+                        </table>
+                        <br/><br/><br/><br/>
+                    </apex:pageBlocksection>   
+                </div><br/>
+            </apex:repeat>
+           <div align="center"> <apex:commandButton value="Back" action="{!gotohome}"/></div>
+        </apex:form>
+    </apex:pageBlock>
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!RLogin}" /></div>
+    </apex:form>
+</apex:page>

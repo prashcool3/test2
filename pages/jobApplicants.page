@@ -1,0 +1,260 @@
+<apex:page sidebar="false" controller="jobApplicantsCtr" showHeader="false" action="{!JobApplcnt}">
+    <style type="text/css">
+    .bPageTitle{
+                border: 1px solid lightgray;
+                padding-bottom: 15px;
+                background-color: #fafafa;
+                margin-left:9%;
+                margin-right:9%;
+    }
+    .pageType {
+                font-size: 38px !important;
+                margin-left: 12% !important;
+                padding-bottom: 20px;
+    }
+    .mainTitle{
+                width: 200%;
+    }
+    .bPageBlock {
+                background-color: white !important;
+    }
+    .apexp{
+                margin-left:9%;
+                margin-right:9%;
+    }
+    .pbHeader{
+        font-size:15px;
+    }
+    .pbSubheader{
+        font-size:15px;
+    }
+    .pbBody{
+        font-size:14px;
+    }
+    .detailList{
+        font-size:14px;
+    }
+    .message{
+                margin-left:9%;
+                margin-right:9%;
+    }
+    </style>
+      
+     <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp;<apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+       <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+    <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" rendered="{!if(talentlogin!=null, true,false)}" />
+      <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navo.name}" rendered="{!if(nplogin!=null, true,false)}" />
+   
+  <apex:pageMessages ></apex:pageMessages>
+    
+     <apex:form rendered="{!if(talentlogin!=null, true,false)}">
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Job Detail</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+     <apex:form rendered="{!if(nplogin!=null, true,false)}">
+         <div style=" border: 1px solid #a0cfec;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:9%;">Job Detail</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+    
+    <apex:form rendered="{!checklogin}">
+        <apex:pageBlock title="Search Description">
+            <apex:pageBlockSection >
+                <apex:outputField value="{!jb.name}" label="Title"/>
+                <apex:outputField value="{!jb.Job_Category__c}"/>
+                <apex:outputField value="{!jb.Tagline__c}"/>
+                <apex:outputField value="{!jb.Short_Description__c}"/>
+            </apex:pageBlockSection>
+            <br></br>
+            <div align="center"><apex:commandButton value="View Job Detail" action="{!viewJob}"/></div>
+        </apex:pageBlock>
+        
+        <div align="center" style="color:red;"><apex:outputtext value="You may have applicants for this project. Please become a paid user to get to know them!" rendered="{!!appVisibility}"/></div>
+        
+        <apex:pageBlock title="Applicants" rendered="{!appVisibility}" id="applcntid">
+            <apex:pageBlockSection title="Number of Applicants: {!applicantCount}" columns="1" rendered="{!if(applicantCount==0, false,true)}">
+                <apex:pageBlockTable style="width:57%" value="{!applicants}" var="gw" id="aid">
+                    <apex:column style="width:150px">
+                        <apex:facet name="header">   
+                            <apex:commandLink action="{!JobApplcnt}" value="Name {!IF(sortExpression=='grant_writer__r.name',IF(sortDirection='ASC',' ▼',' ▲'),'')}" id="cmdSort" reRender="aid">
+                                <apex:param value="grant_writer__r.name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:commandLink value="{!gw.grant_writer__r.name}" action="{!viewApplicant}">
+                            <apex:param assignTo="{!appId}" value="{!gw.grant_writer__r.Id}" name="appId"/> 
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column style="width:80px" value="{!gw.grant_writer__r.City__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt}" value="City {!IF(sortExpression=='grant_writer__r.city__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="aid">
+                                <apex:param value="grant_writer__r.city__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:80px" value="{!gw.grant_writer__r.State__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt}" value="State {!IF(sortExpression=='grant_writer__r.state__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="aid">
+                                <apex:param value="grant_writer__r.state__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:120px" value="{!gw.grant_writer__r.Number_of_projects__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt}" value="Number of Projects {!IF(sortExpression=='grant_writer__r.Number_of_projects__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="aid">
+                                <apex:param value="grant_writer__r.Number_of_projects__c" name="column" assignTo="{!sortExpression}"></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:140px" headerValue="Select">
+                        <apex:inputField value="{!gw.Short_Listed__c}"/>
+                    </apex:column>    
+                </apex:pageBlockTable>
+                <apex:commandButton value="Add to short list" action="{!getShortListed}" style="margin-left:42%;" reRender="applcntid"/>
+            </apex:pageBlockSection>    
+            <apex:pageBlockSection title="Number of ShortListed Applicants: {!shortListCount}" columns="1" rendered="{!if(shortListCount==0,false,true)}" id="shortlist">
+                <apex:pageBlockTable value="{!shortList}" var="sl" id="shrt">
+                    <apex:column style="width:150px">
+                        <apex:facet name="header">   
+                            <apex:commandLink action="{!JobApplcnt1}" value="Name {!IF(sortExpression=='grant_writer__r.name',IF(sortDirection='ASC',' ▼',' ▲'),'')}" id="cmdSort" reRender="shrt">
+                                <apex:param value="grant_writer__r.name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:commandLink value="{!sl.grant_writer__r.name}" action="{!viewApplicant}">
+                            <apex:param assignTo="{!appId}" value="{!sl.grant_writer__r.Id}" name="appId"/> 
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column style="width:80px" value="{!sl.grant_writer__r.City__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt1}" value="City {!IF(sortExpression=='grant_writer__r.city__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="shrt">
+                                <apex:param value="grant_writer__r.city__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:80px" value="{!sl.grant_writer__r.State__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt1}" value="State {!IF(sortExpression=='grant_writer__r.state__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="shrt">
+                                <apex:param value="grant_writer__r.state__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:120px" value="{!sl.grant_writer__r.Number_of_projects__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt1}" value="Number of Projects {!IF(sortExpression=='grant_writer__r.Number_of_projects__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="shrt">
+                                <apex:param value="grant_writer__r.Number_of_projects__c" name="column" assignTo="{!sortExpression}"></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                   <!-- <apex:column style="width:140px" headerValue="Short Listed"  > -->
+                     <!--   <apex:inputField value="{!sl.Short_Listed__c}"/> -->
+                        
+                     <!-- <apex:outputField value="{!sl.Short_Listed__c}" rendered="{!if(sl.Short_Listed__c==false && sl.Selected__c==false ,false,true)}"/> -->
+                       <!-- <apex:inputField value="{!sl.Short_Listed__c}" /> 
+                        
+                    </apex:column> -->
+                    <apex:column style="width:180px" headerValue="Selected">
+                            <apex:inputField value="{!sl.Selected__c}" rendered="{!!sl.Selected__c}"/>
+                   <!--    <apex:inputField value="{!sl.Selected__c}" rendered="{!if(sl.Selected__c==false,true,false)}"/>-->
+                        <apex:outputField value="{!sl.Selected__c}" rendered="{!sl.Selected__c}"/>  
+                    </apex:column> 
+                  <apex:column headerValue="Employment Approval">
+                        <apex:commandLink value="Approve Employment Request" rendered="{!if(sl.Employment_Request__c==true, true,false)}" action="{!approveEmp}" reRender="applcntid"/>
+                        <apex:outputField value="{!sl.Employment_accepted__c}" rendered="{!if(sl.Employment_accepted__c==true, true,false)}"/>
+                    </apex:column> 
+                   
+                   
+                    
+              </apex:pageBlockTable>
+                  <apex:commandButton value="Send Confirmation" action="{!getmail}" style="margin-left:42%;" reRender="applcntid" />  
+               <apex:outputPanel rendered="{!sentConfirmation}">
+                  <apex:outputtext style="color:blue;" value="Confirmation Sent!!" />
+               </apex:outputPanel>
+              </apex:pageBlockSection> 
+            
+            
+            <apex:pageBlockSection title="Number of Contractors: {!employedCount}" columns="1" rendered="{!if(employedCount==0,false,true)}" id="contractors">
+                <apex:pageBlockTable value="{!Employees}" var="sl" id="shrt">
+                    <apex:column style="width:150px">
+                        <apex:facet name="header">   
+                            <apex:commandLink action="{!JobApplcnt1}" value="Name {!IF(sortExpression=='grant_writer__r.name',IF(sortDirection='ASC',' ▼',' ▲'),'')}" id="cmdSort" reRender="shrt">
+                                <apex:param value="grant_writer__r.name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:commandLink value="{!sl.grant_writer__r.name}" action="{!viewEmployee}">
+                            <apex:param assignTo="{!appId}" value="{!sl.grant_writer__r.Id}" name="appId"/> 
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column style="width:80px" value="{!sl.grant_writer__r.City__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt1}" value="City {!IF(sortExpression=='grant_writer__r.city__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="shrt">
+                                <apex:param value="grant_writer__r.city__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:80px" value="{!sl.grant_writer__r.State__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt1}" value="State {!IF(sortExpression=='grant_writer__r.state__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="shrt">
+                                <apex:param value="grant_writer__r.state__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column style="width:120px" value="{!sl.grant_writer__r.Number_of_projects__c}">
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!JobApplcnt1}" value="Number of Projects {!IF(sortExpression=='grant_writer__r.Number_of_projects__c',IF(sortDirection='ASC',' ▼',' ▲'),'')}" reRender="shrt">
+                                <apex:param value="grant_writer__r.Number_of_projects__c" name="column" assignTo="{!sortExpression}"></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                 
+                 <!-- <apex:column style="width:140px"  headerValue="Employment Approval">
+                        <apex:commandLink value="Approve Employment Request" rendered="{!if(sl.Employment_Request__c==true, true,false)}" action="{!approveEmp}" />
+                        <apex:outputField value="{!sl.Employment_accepted__c}" rendered="{!if(sl.Employment_accepted__c==true, true,false)}"/>
+                    </apex:column> -->
+                    <apex:column style="width:180px" headerValue="Grant Approval">
+                        <apex:commandLink value="Grant Request" rendered="{!if(sl.Grant_requested__c==true, true,false)}" action="{!approveGrant}" reRender="applcntid" />
+                        <apex:outputField value="{!sl.Grant_accepted__c}" rendered="{!if(sl.Grant_accepted__c==true, true,false)}"/>
+                    </apex:column> 
+                    
+                    <apex:column headerValue="Role">
+                    
+                   <!--     <apex:selectList value="{!RoleofEmployee}" multiselect="false" size="1" rendered="{!editR}" onselect="{!saveRoleEmp}">
+                             <apex:selectOption itemValue="" itemLabel="--Select--"/>
+                             <apex:selectOption itemValue="Supervisor" itemLabel="Supervisor"/>
+                             <apex:selectOption itemValue="Grant Writer" itemLabel="Grant Writer"/>
+                             <apex:selectOption itemValue="Grant Editor" itemLabel="Grant Editor"/>
+                             <apex:selectOption itemValue="Grant Researcher" itemLabel="Grant Researcher"/>
+                        </apex:selectList>
+                      
+                     <apex:commandbutton value="save role" action="{!saveRoleEmp}" rendered="{!editR}"/> -->
+                        
+                        
+                        <apex:outputField value="{!sl.Role__c}" rendered="{!!editR}"/> &nbsp;
+                    <!--    <apex:commandLink value="Select role" action="{!editRole}" rendered="{!!editR}"/> -->
+                        
+                    </apex:column> 
+                   
+                    
+                </apex:pageBlockTable>
+                <!--<apex:commandButton value="Send Confirmation" action="{!getmail}" style="margin-left:42%;" reRender="applcntid"/>-->
+            </apex:pageBlockSection> 
+            
+           
+               
+        </apex:pageBlock>
+        
+             
+    </apex:form>
+   
+    <br/><br/>
+    <apex:form ><div align="center"> <apex:commandButton style="font-size:14px;"  value="Back" action="{!back}"/>
+     <apex:commandButton style="font-size:14px;"  value="Click to become a paid user" action="{!paiduser}"  rendered="{!!appVisibility}"/></div>
+    </apex:form>
+  
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" onclick="window.open('/apex/UserLoginVF','_parent')"/></div>
+    </apex:form>
+</apex:page>

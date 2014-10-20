@@ -1,0 +1,72 @@
+<apex:page controller="listAppliedJobsCtr" action="{!listAppliedJobs}" showHeader="false" sidebar="false">
+    <style type="text/css">
+        .bPageTitle{
+                    border: 1px solid lightgray;
+                    padding-bottom: 15px;
+                    background-color: #fafafa;
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .pageType {
+                    font-size: 38px !important;
+                    margin-left: 12% !important;
+                    padding-bottom: 20px;
+        }
+        .bPageBlock {
+                    background-color: white !important;
+                    border:0px;
+        }
+        .apexp{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+        .message{
+                    margin-left:9%;
+                    margin-right:9%;
+        }
+    </style>
+    <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/>&nbsp;&nbsp;&nbsp;  <apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/>&nbsp;&nbsp;&nbsp; <apex:commandLink style="margin-right:11%; font-weight:bold; text-decoration:none;" action="{!Logout}" value=" Logout"/></div></apex:form>
+ 
+    <apex:form ><div style="margin-left:9%;"><apex:commandlink action="{!gotohome}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandLink></div></apex:form>
+    <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!navg.name}" rendered="{!if(talentlogin!=null, true,false)}" />
+    <apex:form >
+         <div style=" border: 1px solid #4CBB17;width:81%;margin-left:9%;height:70px; padding-top: 2%; background-color:#BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Applied Jobs</div>
+         </div>
+    </apex:form><br></br>
+    <apex:pagemessages />
+    <apex:pageBlock rendered="{!checklogin}">
+        <apex:form >
+        <div align="center"> <apex:commandButton value="Back" action="{!gotohome}"/></div><br/>
+            <apex:repeat value="{!appliedJobs}" var="a">
+                <div style="border:2px solid olivedrab;">
+                    <apex:pageBlockSection columns="1">            
+                        <div style="color:#04B404;font-weight: bold; font-size:20px;"><u>{!a.Name}</u></div>
+                        <div>{!a.Job_Category__c}</div>
+                        <hr/>
+                        <div style="color:grey; font-size:10px;">LISTED: {!a.CreatedDate}</div>
+                        <hr/><br/>
+                        <div>{!a.Short_Description__c}</div><br/>
+                    <!--    <apex:commandlink value="view reviews" onclick="window.open('/apex/viewReviewsNPVF?ids={!a.Organization__c}','_parent')"/> -->
+                        <table bgcolor="#FFFFFF" align="right" cellpadding="5">
+                            <tr>
+                                 
+                                <td style="background-color:#013ADF; color:white;">{!a.Position_Type__c}</td>
+                                <td style="color:grey; font-size:10px;">Salary: {!a.Minimum_Salary__c}-{!a.Maximum_Salary__c}</td>
+                                <td style="color:grey; font-size:10px;">
+                                    <input type="button" value="view job" onclick="window.open('/apex/AppliedJobDesc?ids={!a.id}&gwid={!gid}&talentlogin={!talentlogin}','_parent')"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/><br/><br/><br/>
+                     </apex:pageBlocksection>    
+                </div><br/>  
+            </apex:repeat>
+            <div align="center"> <apex:commandButton value="Back" action="{!gotohome}"/></div>
+        </apex:form>
+    </apex:pageBlock>
+    <br/><br/><br/><br/>
+    <apex:form rendered="{!!checklogin}">
+        <div align="center"><apex:commandButton value="Click here to login" action="{!login}"/></div>
+    </apex:form>  
+</apex:page>

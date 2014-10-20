@@ -1,0 +1,377 @@
+<apex:page controller="SubmitAccountController" sidebar="false" showHeader="false" id="detail" >
+    
+    <style type="text/css">
+    .apexp{
+                margin-left:9%;
+                margin-right:9%;
+    }
+    .bPageTitle{
+                border: 1px solid lightgray;
+                padding-bottom: 15px;
+                background-color: #fafafa;
+    }
+    .pageType {
+                font-size: 38px !important;
+                margin-left: 12% !important;
+                padding-bottom: 20px;
+    }
+    .mainTitle {
+               width: 200%;
+    }
+    .bPageBlock{
+               background-color: white !important;
+    }  
+    .classname {
+               -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+               -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+               box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+               background-color:#79bbff !important; 
+               -moz-border-radius:6px;
+               -webkit-border-radius:6px;
+               border-radius:6px;
+               border:1px solid #84bbf3;
+               display:inline-block;
+               color:#ffffff !important;
+               font-family:arial;
+               font-size:15px;
+               font-weight:bold;
+               padding:6px 24px;
+               text-decoration:none;
+               text-shadow:1px 1px 0px #528ecc;
+           }
+    .classname:hover {
+               background-color:#378de5 !important;
+           }
+    .classname:active {
+               position:relative;
+               top:1px;
+           }
+
+    </style>
+    <script type="text/javascript">
+        /*function hidef(){
+            var x = document.getElementById("{!$Component.detail:detail1:detail2:detail3:clink}");
+            alert(x);
+            x.click();
+        }*/
+    </script>
+    <apex:form ><div align="right" ><apex:commandLink style="font-weight:bold; text-decoration:none;" action="{!gotosite}" value="Home"/> <apex:commandLink style="margin-right:11%;font-weight:bold; text-decoration:none;" action="{!blog}" value=" Blog"/></div></apex:form>
+    <apex:form ><div style="margin-left:9%;margin-top:2%"><apex:commandLink action="{!gotosite}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandlink></div></apex:form>
+    
+    
+     <apex:form >
+         <div style=" border: 1px solid #4CBB17;width:1000px;margin-left:120px;height:70px; padding-top: 2%; background-color: #BCED91;">
+             <div style="font-size:40px;margin-left:9%;">Talent Sign Up</div>
+         </div>
+    </apex:form><br></br>
+    
+    
+    <div style="margin-left:120px;font-size:25px;"><br/>Please sign up below. Share your skills and connect with non-profits and universities.<br/><br/></div>
+  
+   <apex:form id="detail1">
+     <apex:actionRegion >
+     
+       <table style="margin-left:120px; width:1000px;" cellspacing="25" >
+           <tr>
+              <td style="text-align: left; border-bottom-color: #ffffff;font-size:14px;" width="20%">      
+                   Salutation</td><td style="text-align: left; " width="35%"> <apex:inputField value="{!a.Salutation__c}"  style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;" />
+               </td>
+           </tr>
+        
+           <tr>
+               <td style="font-size:14px;">First Name</td>
+               <td style="border-left-width: 2px;" size="20"><apex:inputField value="{!a.First_Name__c}" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"  required="true"  /></td>
+               <td style="font-size:14px;">Last Name</td>
+               <td style="border-left-width: 2px; border-left-color: #ff0000; border-bottom-color: #ffffff" size="20">    <apex:inputField value="{!a.Last_Name__c}"  required="true" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"  /></td>
+           </tr>
+           <tr>
+               <td style="font-size:14px;">Phone-primary</td>
+               <td style="border-left-width: 2px; border-left-color: #ff0000;" size="20">   <apex:inputField value="{!a.Phone__c}" label="Phone-primary" required="true" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;"  / ></td>
+               <td style="font-size:14px;">Phone-alternate</td>
+               <td style="border-left-width: 2px; border-left-color: #ff0000;" size="20">  <apex:inputField value="{!a.Phone_alternate__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;"/> </td>
+           </tr>
+           <tr>
+               <td style="font-size:14px;">Mailing Street Address</td> 
+               <td style="border-left-width: 2px; border-left-color: #ff0000;" size="20">   <apex:inputField value="{!a.Mailing_Street_Address__c}" style="border-left-width: 3px; border-radius: 3px;border: 1px solid lightgray; border-radius: 3px;"/> </td>
+               <td style="font-size:14px;">City</td>
+               <td style="border-left-width: 2px; border-left-color: #ff0000;" size="20">   <apex:inputField value="{!a.City__c}" style="border-left-width: 3px; border-radius: 3px;border: 1px solid lightgray; border-radius: 3px;"/> </td>
+           </tr>
+           <tr>
+               <td style="font-size:14px;">State</td> 
+               <td style="border-left-width: 2px;" size="20">   <apex:inputField value="{!a.State__c}" style="border-left-width: 3px; border-radius: 3px;border: 1px solid lightgray; border-radius: 3px;"/> </td>
+               <td style="font-size:14px;">Zip</td>
+               <td style="border-left-width: 2px;" size="20">   <apex:inputField value="{!a.Zip_Postal_Code__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;"/> </td>
+           </tr>
+           <tr>    
+               <td style="font-size:14px;">Email</td>
+               <td style="border-left-width: 2px;" size="20">  <apex:inputField value="{!a.Email__c}" required="true" style="border-left-width: 3px !important; border-left-color: #ff0000 !important;border: 1px solid lightgray; border-radius: 3px;" /></td>
+               <td style="font-size:14px;">Website</td> 
+               <td style="border-left-width: 2px; border-left-color: #ff0000;" size="20">  <apex:inputField value="{!a.Website__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;"/></td>
+           </tr>
+           <tr>
+               <td style="font-size:14px;" >Grant Job Type</td>
+               <td style="border-left-width: 2px;" size="20" > 
+               
+                   <apex:inputField value="{!a.Talent_Skill__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;" id="talenttype">
+                       <apex:actionSupport event="onchange" reRender="detail1"/>
+                   </apex:inputField>
+               </td>
+               <td style="font-size:14px;">      
+                   <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Grant Writer'),true,if(a.Talent_Skill__c = 'All',true,false))}"  > 
+                      Funding raised
+                            <p style="color: grey; font-size: xx-small; ">Have documented evidence of successful contributions raised</p>
+                   </apex:outputPanel>   
+                            
+               </td>
+               <td style="border-left-width: 2px; vertical-align:top" size="20" >
+                   <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Grant Writer'),true,if(a.Talent_Skill__c = 'All',true,false))}"> 
+                        <apex:inputField value="{!a.Self_Evaluation_Writer__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;" /> 
+                   </apex:outputpanel> 
+               </td>
+         
+            </tr>
+            <tr>
+                <td style="font-size:14px; vertical-align: top;">Category/Role </td>
+                <td style="border-left-width: 2px;" size="20">
+                 <apex:selectCheckboxes value="{!str}" layout="pageDirection" >
+                     <apex:selectOption itemValue="Arts/Culture" itemLabel="Arts/Culture"/>
+                     <apex:selectOption itemValue="Civic/Politics" itemLabel="Civic/Politics"/>
+                     <apex:selectOption itemValue="Disaster" itemLabel="Disaster"/>
+                     <apex:selectOption itemValue="Hunger" itemLabel="Hunger"/>
+                     <apex:selectOption itemValue="Education" itemLabel="Education"/>
+                     <apex:selectOption itemValue="STEAM/STEM" itemLabel="STEAM/STEM"/>
+                     <apex:selectOption itemValue="Science" itemLabel="Technology"/>
+                     <apex:selectOption itemValue="Recreation and sports" itemLabel="Recreation and sports"/>
+                     <apex:selectOption itemValue="Health Medicine" itemLabel="Health Medicine"/>
+                     <apex:selectOption itemValue="Social Justice" itemLabel="Social Justice"/>
+                     <apex:selectOption itemValue="Environment" itemLabel="Environment"/>
+                     <apex:selectOption itemValue="Diversity/Inclusion" itemLabel="Diversity/Inclusion"/>
+                     <apex:selectOption itemValue="Capacity Building" itemLabel="Capacity Building"/>
+                     <apex:selectOption itemValue="Leadership/Mentoring" itemLabel="Leadership/Mentoring"/>
+                     <apex:selectOption itemValue="Advocacy" itemLabel="Advocacy"/>
+                     <apex:selectOption itemValue="Math/Engineering" itemLabel="Math/Engineering"/>
+                 </apex:selectCheckboxes></td>
+                                    <!-- <p style="color: grey; font-size: xx-small; margin-right: 15px;">Choose Ctrl/Shift for multiple options.</p></td>
+                <td style="border-left-width: 2px;" size="20"><apex:inputField value="{!a.Seeking__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;"/></td> -->
+                <td style="font-size:14px;vertical-align: top;"> Area of expertise </td>
+                <td style="border-left-width: 2px; vertical-align: top;" size="20">
+                 <apex:selectCheckboxes value="{!str1}" layout="pageDirection" >
+                     <apex:selectOption itemValue="Animals/Welfare" itemLabel="Animals/Welfare"/>
+                     <apex:selectOption itemValue="Entrepreneur" itemLabel="Entrepreneur"/>
+                     <apex:selectOption itemValue="Health/Medicine" itemLabel="Health/Medicine"/>
+                     <apex:selectOption itemValue="International/Global" itemLabel="International/Global"/>
+                     <apex:selectOption itemValue="Social/Hobbies" itemLabel="Social/Hobbies"/>
+                     <apex:selectOption itemValue="Senior/Elderly" itemLabel="Senior/Elderly"/>
+                     <apex:selectOption itemValue="Women's groups" itemLabel="Women's groups"/>
+                     <apex:selectOption itemValue="Young professionals" itemLabel="Young professionals"/>
+                     <apex:selectOption itemValue="Youth/Families" itemLabel="Youth/Families"/>
+                     <apex:selectOption itemValue="Other" itemLabel="Other"/>
+                </apex:selectCheckboxes></td>
+                
+                
+                                 <!--    <p style="color: grey; font-size: xx-small; margin-right: 15px;">Choose Ctrl/Shift for multiple options.</p></td>
+                <td style="border-left-width: 2px;" size="20"><apex:inputField value="{!a.Interest_In__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;" /></td>
+                  -->
+                  
+          <tr>
+              <td style="font-size:14px; vertical-align: top;">Audience Type </td>
+              <td style="border-left-width: 2px;" size="20">
+                 <apex:selectCheckboxes value="{!str2}" layout="pageDirection" >
+                     <apex:selectOption itemValue="Children: Early Childhood" itemLabel="Children: Early Childhood"/>
+                     <apex:selectOption itemValue="Children: Primary" itemLabel="Children: Primary"/>
+                     <apex:selectOption itemValue="Children: Secondary" itemLabel="Children: Secondary"/>
+                     <apex:selectOption itemValue="Children: University" itemLabel="Children: University"/>
+                     <apex:selectOption itemValue="Adult: Senior / Elderly" itemLabel="Adult: Senior / Elderly"/>
+                     <apex:selectOption itemValue="Family" itemLabel="Family"/>
+                     <apex:selectOption itemValue="Women" itemLabel="Women"/>
+                     <apex:selectOption itemValue="Men" itemLabel="Men"/>
+                     <apex:selectOption itemValue="Animals" itemLabel="Animals"/>
+                     <apex:selectOption itemValue="Veteran" itemLabel="Veteran"/>
+                </apex:selectCheckboxes></td>
+          
+          </tr>
+          
+          
+            </tr>
+            <tr>
+                <td style="font-size:14px;" >
+                    <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Researcher'),true,if(a.Talent_Skill__c = 'All',true,false))}" id="se"> 
+                        <table width="100%"><tr><td>
+                            Self Evaluation(Researcher)
+                               <p style="color: grey; font-size: xx-small; margin-right: 15px;">Trained in prospecting potential funders and matching to needs of the non profit</p></td></tr></table>
+                     </apex:outputPanel>
+                </td>
+                
+                <td style="border-left-width: 2px;vertical-align: top;" size="20">
+                    <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Researcher'),true,if(a.Talent_Skill__c = 'All',true,false))}" id="se1"> 
+                        <apex:inputField value="{!a.Self_Evalation_Researcher__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;"/>
+                    </apex:outputpanel>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:14px;"> 
+                    <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Editor'),true,if(a.Talent_Skill__c = 'All',true,false))}" id="see"> 
+                        Self Evaluation(Editor)
+                        <p style="color: grey; font-size: xx-small; margin-right: 15px;">Have experience with</p>  
+                    </apex:outputpanel>
+                </td>
+                <td style="border-left-width: 2px;vertical-align: top;" size="20">
+                    <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Editor'),true,if(a.Talent_Skill__c = 'All',true,false))}" id="see1"> 
+                       <apex:inputField style="border-left-width: 2px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;" value="{!a.Self_Evaluation_Editor__c}" />
+                    </apex:outputpanel>
+                </td>
+                <td style="font-size:14px;">
+                    <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Editor'),true,if(a.Talent_Skill__c = 'All',true,false))}" id="see3"> 
+                        Self Evaluation(Editor) </apex:outputpanel>
+                </td>     
+                <td style="border-left-width: 2px;vertical-align: top;" size="20">
+                    <apex:outputPanel rendered="{!if(contains(a.Talent_Skill__c,'Editor'),true,if(a.Talent_Skill__c = 'All',true,false))}" id="see4"> 
+                        <apex:inputField value="{!a.Self_Evaluation_Editor_more__c}" style="border-left-width: 2px; border-radius: 3px;border: 1px solid lightgray; border-radius: 3px;"/>
+                    </apex:outputpanel>
+                </td>
+            </tr>
+             <tr>
+               <td style="font-size:14px;">LinkedIn</td>
+               <td style="border-left-width: 2px;" size="20"><apex:inputField value="{!a.LinkedIn__c}" style="border: 1px solid lightgray; border-radius: 3px;"   /></td>
+               <td style="font-size:14px;">Twitter</td>
+               <td style="border-left-width: 2px; border-left-color: #ff0000; border-bottom-color: #ffffff" size="20">    <apex:inputField value="{!a.Twitter__c}"   style=";border: 1px solid lightgray; border-radius: 3px;"  /></td>
+           </tr>
+              <tr>
+               <td style="font-size:14px;">Facebook</td>
+               <td style="border-left-width: 2px;" size="20"><apex:inputField value="{!a.Facebook__c}" style="border: 1px solid lightgray; border-radius: 3px;"   /></td>
+               <td style="font-size:14px;">Other</td>
+               <td style="border-left-width: 2px; border-left-color: #ff0000; border-bottom-color: #ffffff" size="20">    <apex:inputField value="{!a.Others__c}"   style=";border: 1px solid lightgray; border-radius: 3px;"  /></td>
+           </tr>
+            <tr><td>
+               <apex:commandLink style="font-size:15px;" value="Add references" onclick="window.open('/apex/addReferencesVF?uid={!uId}','','scrollbars=1,width=1200,height=300','_blank',1);return false; "/>
+            </td></tr>  
+            <!--<tr><td style="font-size:16px; font-weight:bold;" >Add References</td></tr>
+            <tr>
+            <td style="font-size:14px;" >Select Reference Type</td>
+               <td style="border-left-width: 2px;" size="20" > 
+                   <apex:actionRegion >
+                   <apex:inputField value="{!a.Select_Reference_Type__c}" style="border-left-width: 3px; border-radius: 3px; border: 1px solid lightgray; border-radius: 3px;" id="refType">
+                      <apex:actionSupport event="onchange" reRender="detail2"/>
+                   </apex:inputField>
+                   </apex:actionRegion>
+               </td>
+           </tr> -->
+            
+        </table>  </apex:actionRegion>
+    
+    <!--
+   
+        <apex:pageBlock id="detail2" title="References">
+        <apex:pageBlockSection title="Reference - Colleague: Professional" rendered="{!if(contains(a.Select_Reference_Type__c, 'Colleague: Professional'), true, false)}">
+           <apex:inputField value="{!a.First_Name_Colleague_Professional__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Colleague_Professional__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Colleague_Professional__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Colleague_Professional__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Colleague_Professional__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Reference - Supervisor: Professional" rendered="{!if(contains(a.Select_Reference_Type__c, 'Supervisor: Professional'), true, false)}">
+        
+           <apex:inputField value="{!a.First_Name_Supervisor_Professional__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Supervisor_Professional__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Supervisor_Professional__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Supervisor_Professional__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Supervisor_Professional__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Reference - Colleague: Volunteer work" rendered="{!if(contains(a.Select_Reference_Type__c, 'Colleague: Volunteer'), true, false)}">
+        
+           <apex:inputField value="{!a.First_Name_Colleague_Volunteer__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Colleague_Volunteer__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Colleague_Volunteer__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Colleague_Volunteer__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Colleague_Volunteer__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Reference - Supervisor: Volunteer work" rendered="{!if(contains(a.Select_Reference_Type__c, 'Supervisor: Volunteer'), true, false)}">
+       
+           <apex:inputField value="{!a.First_Name_Supervisor_Volunteer__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Supervisor_Volunteer__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Supervisor_Volunteer__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Supervisor_Volunteer__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Supervisor_Volunteer__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Reference - Professor: School" rendered="{!if(contains(a.Select_Reference_Type__c, 'Professor: School'), true, false)}">
+        
+           <apex:inputField value="{!a.First_Name_Professor__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Professor__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Professor__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Professor__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Professor__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Reference - Personal: Community involvement" rendered="{!if(contains(a.Select_Reference_Type__c, 'Personal: Community involvement'), true, false)}" >
+      
+           <apex:inputField value="{!a.First_Name_Personal__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Personal__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Personal__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Personal__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Personal__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Reference - Family Friend" rendered="{!if(contains(a.Select_Reference_Type__c, 'Family Friend'), true, false)}">
+        
+           <apex:inputField value="{!a.First_Name_Family_Friend__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Last_Name_Family_Friend__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Family_Friend__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Family_Friend__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Family_Friend__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Reference - Friend" rendered="{!if(contains(a.Select_Reference_Type__c, 'Friend'), true, false)}">
+        
+           <apex:inputField value="{!a.First_Name_Friend__c}" label="First Name"/>
+           <apex:inputField value="{!a.Last_Name_Friend__c}" label="Last Name"/>
+           <apex:inputField value="{!a.Email_Friend__c}" label="Email"/>
+           <apex:inputField value="{!a.Daytime_Phone_Friend__c}" label="Daytime Phone"/>
+           <apex:inputField value="{!a.Relationship_Friend__c}" label="Relationship"/>
+         </apex:pageBlockSection>
+         </apex:pageBlock> -->
+          
+          
+          <table style="margin-left:122px; width:1000px;" cellspacing="25">
+           <tr>
+               <td style="font-size:15px; width: 18%;"> 
+                   Select Resume
+               </td>
+               <td style="border-left-width: 2px;vertical-align: top;" size="20">
+                   <apex:outputPanel >
+                        <apex:inputFile accept="doc, txt, pdf" contentType="{!contentType}" filesize="1000" size="50" value="{!Resumee}" id="ifile" style="margin-left:2%; font-size: 96%;"/>
+                   </apex:outputPanel>
+               </td>
+               </tr>
+               <tr>
+               <td style="font-size:15px;" >
+                   Select Cover Letter
+               </td>
+                <td style="border-left-width: 2px;vertical-align: top;" size="20">
+                   <apex:outputPanel >
+                        <apex:inputFile accept="doc, txt, pdf" contentType="{!contentType1}" filesize="1000" size="50" value="{!cover}" id="ifile1" style="margin-left:2%; font-size: 96%;"/>
+                   </apex:outputPanel>
+               </td>
+               
+           </tr> 
+              
+       </table>
+       
+                
+          
+    
+        <br/><br/>
+            <div style="margin-left:600px;">
+          
+               <apex:commandButton value="Submit" action="{!submitAccount}" />
+               <apex:commandButton value="Cancel" onclick="window.open('/apex/UserloginVF','_parent');" />
+            </div>
+            
+           
+     
+         <br/><br/><br/>
+    </apex:form>
+</apex:page>

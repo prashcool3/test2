@@ -1,0 +1,79 @@
+<apex:page controller="empsignup" showHeader="false" sidebar="false" >
+   
+<apex:form >
+<div style="margin-left:9%;"><apex:commandLink action="{!gotosite}"><apex:image url="{!$Resource.GrantSourceLogo}"/></apex:commandlink></div>
+       <apex:outputtext style="margin-left:79%; font-weight:bold;" value="Logged in as {!org.name}" />
+    
+         <div style="width:81%;margin-left:9%;"><apex:pagemessages ></apex:pagemessages></div>
+     </apex:form>
+   
+
+<apex:form >
+         <div style="border: 1px solid #a0cfec; margin-left:9%; margin-right:9%; height:70px; padding-top: 30px; background-color:#C2DFFF;">
+             <div style="font-size:40px;margin-left:90px;">Employee Sign up</div>
+         </div>
+    </apex:form><br></br>
+    <apex:form style="margin-left:11%; width:70%; font-size:14px;" >
+   
+    
+        <table style="margin-left:11%; width:70%; font-size:14px;" cellpadding="10">
+        <tr>
+            <td width="14%"> Username </td>
+            <td>
+                <apex:inputField value="{!emp.username__c}"  style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+            <td width="14%"> Password </td>
+            <td>
+                <apex:inputField value="{!emp.Password__c}"   style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+        </tr>
+         <tr>
+            <td width="14%"> First Name </td>
+            <td>
+                <apex:inputField value="{!emp.Name}"  style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+            <td width="14%"> Last Name </td>
+            <td>
+                <apex:inputField value="{!emp.Last_Name__c}"   style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+        </tr>
+        <tr>
+            <td width="14%"> Address </td>
+            <td>
+                <apex:inputField value="{!emp.Address__c}"  style="border-left-width: 2px;"/>
+            </td>
+            <td width="14%"> City </td>
+            <td>
+                <apex:inputField value="{!emp.City__c}"   style="border-left-width: 2px; border-radius: 3px;"/>
+            </td>
+        </tr>
+         <tr>
+            <td width="14%"> State </td>
+            <td>
+                <apex:inputField value="{!emp.State__c}"  style="border-left-width: 2px;border-radius: 3px; "/>
+            </td>
+            <td width="14%"> Country </td>
+            <td>
+                <apex:inputField value="{!emp.Country__c}"   style="border-left-width: 2px;border-radius: 3px;"/>
+            </td>
+        </tr>
+         <tr>
+            <td width="14%"> Email </td>
+            <td>
+                <apex:inputField value="{!emp.Email__c}"  style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+            <td width="14%"> Zip Code </td>
+            <td>
+                <apex:inputField value="{!emp.PIN__c}"   style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+        </tr>
+         <tr>
+            <td width="14%"> Phone </td>
+            <td>
+                <apex:inputField value="{!emp.Phone__c}"  style="border-left-width: 2px; border-radius: 3px;border-left-width: 3px !important; border-left-color: #ff0000 !important;"/>
+            </td>
+          </tr>
+        </table><br/>
+        <div align="center"><apex:commandButton value="Submit" action="{!insertEmp}" /></div>
+  </apex:form>
+</apex:page>
