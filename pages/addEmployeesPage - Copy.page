@@ -1,0 +1,28 @@
+<apex:page >
+    <br/>
+  <h1 style="font-size:25px;">Add Employees</h1>
+  <br/><br/>
+
+
+ <apex:form >
+ 
+       <div style="font-size:18px;">Enter email address:<apex:inputtext /></div><br/>
+        <div style="font-size:18px;">Enter email address:<apex:inputtext /></div><br/>
+         <div style="font-size:18px;">Enter email address:<apex:inputtext /> <apex:commandButton value="Add more"/></div><br/><br/>
+         <apex:commandButton style="font-size:18px;" value="Send Invitation"/>
+        
+ </apex:form>
+ 
+ 
+ 
+ <apex:form >
+ <br/><br/>
+     <h1 style="font-size:25px;">Employees of Astrea IT Services</h1><br/><br/>
+     <apex:commandLink style="font-size:20px;" value="William Johnson"/>   <br/><br/>
+     <apex:commandLink style="font-size:20px;" value="Ryan Sanders"/><br/><br/>
+     
+      
+ 
+ </apex:form>
+ 
+</apex:page>
